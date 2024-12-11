@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             val fragment = JadwalUntukPesanLapangan()
-            val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+            val transaction= supportFragmentManager.beginTransaction()
             transaction.replace(R.id.fragment_container, fragment)
             transaction.commit()
         }

@@ -5,6 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.CalendarView
+import android.widget.TextView
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -20,6 +23,9 @@ class dateSelection : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    lateinit var _calendarView: CalendarView
+    lateinit var _backBtn: Button
+    lateinit var _tanggalYgDipilih: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +40,26 @@ class dateSelection : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_date_selection, container, false)
+        val view = inflater.inflate(R.layout.fragment_date_selection, container, false)
+        _tanggalYgDipilih = view.findViewById(R.id.tanggalYgDipilih)
+        _calendarView = view.findViewById(R.id.calendarView)
+        _calendarView.setOnDateChangeListener {
+            view, year, month, dayOfMonth ->
+            val selectedDate = "$dayOfMonth/${month + 1}/$year"
+
+            _tanggalYgDipilih.setText(selectedDate)
+
+        }
+
+        _backBtn = view.findViewById(R.id.backBtn)
+        _backBtn.setOnClickListener {
+            val transaction = parentFragmentManager.beginTransaction()
+            transaction.replace(R.id.fragmentContainerJadwal, JadwalUntukPesanLapangan())
+            transaction.addToBackStack(null)
+            transaction.commit()
+        }
+
+        return view
     }
 
     companion object {
