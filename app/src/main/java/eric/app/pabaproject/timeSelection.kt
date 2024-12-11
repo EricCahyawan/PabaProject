@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.ListView
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -20,6 +22,8 @@ class timeSelection : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    lateinit var _lvTime: ListView
+    var data: MutableList<String> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,8 +38,26 @@ class timeSelection : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_time_selection, container, false)
+        val view =  inflater.inflate(R.layout.fragment_time_selection, container, false)
+        val insertData = listOf("06:00-07:59" , "08:00-09:59", "10:00-11:59", "12:00-13:59", "14:00-15:59", "16:00-17:59", "18:00-19:59", "20:00-21:59")
+        data.addAll(insertData)
+
+        //parameter 1 adapter di fragment harus requireContext() bukan this
+        val lvAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, data)
+        _lvTime = view.findViewById(R.id.lvTime)
+        _lvTime.adapter = lvAdapter
+
+        _lvTime.setOnItemClickListener{ parent, _, position, id ->
+            data.removeAt(position)
+            lvAdapter.notifyDataSetChanged()
+        }
+
+
+
+        return view
     }
+
+
 
     companion object {
         /**

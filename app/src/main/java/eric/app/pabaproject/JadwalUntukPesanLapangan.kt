@@ -20,13 +20,15 @@ class JadwalUntukPesanLapangan : Fragment() {
     private var param2: String? = null
     lateinit var _jamYgDipilih: TextView
     lateinit var _tanggalYgDipilih: TextView
+    var receivedDate: String = ""
     val db = Firebase.firestore
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            param1 = it.getString("selectedDate")
+            param2 = it.getString("selectedTime")
         }
     }
 
@@ -48,6 +50,10 @@ class JadwalUntukPesanLapangan : Fragment() {
         val menit = calendar.get(Calendar.MINUTE)
         _tanggalYgDipilih.setText("$tanggal/$bulan/$tahun")
         _jamYgDipilih.setText("$jam:$menit")
+        if (param1 != null){
+            receivedDate = param1.toString()
+            _tanggalYgDipilih.setText(receivedDate)
+        }
 
         // Listener untuk mengganti fragment
         constraintLayoutTanggal.setOnClickListener {

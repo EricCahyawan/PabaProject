@@ -25,7 +25,9 @@ class dateSelection : Fragment() {
     private var param2: String? = null
     lateinit var _calendarView: CalendarView
     lateinit var _backBtn: Button
+    lateinit var _saveBtn: Button
     lateinit var _tanggalYgDipilih: TextView
+    var selectedDate: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,20 +43,40 @@ class dateSelection : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_date_selection, container, false)
+
         _tanggalYgDipilih = view.findViewById(R.id.tanggalYgDipilih)
         _calendarView = view.findViewById(R.id.calendarView)
+        _backBtn = view.findViewById(R.id.backBtn)
+        _saveBtn = view.findViewById(R.id.saveBtn)
+
         _calendarView.setOnDateChangeListener {
             view, year, month, dayOfMonth ->
-            val selectedDate = "$dayOfMonth/${month + 1}/$year"
+            selectedDate = "$dayOfMonth/${month + 1}/$year"
 
             _tanggalYgDipilih.setText(selectedDate)
 
         }
 
-        _backBtn = view.findViewById(R.id.backBtn)
         _backBtn.setOnClickListener {
+            val currentFragment = parentFragmentManager.findFragmentById(R.id.fragmentContainerJadwal) // yang dimaskud di fragment di android studio yaitu frame layout
+            if (currentFragment != null) {
+                val transaction = parentFragmentManager.beginTransaction()
+                transaction.remove(currentFragment)
+                transaction.addToBackStack(null)
+                transaction.commit()
+            }
+        }
+
+        _saveBtn.setOnClickListener {
+            val sendDate = selectedDate
+            val targetFragment = JadwalUntukPesanLapangan().apply {
+                arguments = Bundle().apply {
+                    putString("selectedDate", sendDate)
+                }
+            }
+
             val transaction = parentFragmentManager.beginTransaction()
-            transaction.replace(R.id.fragmentContainerJadwal, JadwalUntukPesanLapangan())
+            transaction.replace(R.id.fragment_container, targetFragment)
             transaction.addToBackStack(null)
             transaction.commit()
         }
