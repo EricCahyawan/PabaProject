@@ -1,6 +1,8 @@
 package eric.app.pabaproject
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -26,6 +28,14 @@ class MainActivity : AppCompatActivity() {
             transaction.replace(R.id.fragment_container, fragment)
             transaction.commit()
         }
+
+        //intent ke admin
+        val _btnTambah = findViewById<ImageView>(R.id.btnTambah)
+        _btnTambah.setOnClickListener{
+            startActivity(Intent(this, TambahJenisOlahraga::class.java))
+        }
+
+
     }
 
 

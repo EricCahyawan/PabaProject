@@ -1,5 +1,6 @@
 package eric.app.pabaproject
 
-data class JenisOlahraga(
+
+    data class JenisOlahraga(
     var nama : String
-)
+    )

@@ -24,7 +24,7 @@
         android:text="SELAMAT DATANG,"/>
 
         <TextView
-            android:id="@+id/nama"
+            android:id="@+id/namaPengguna"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"

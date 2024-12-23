@@ -1,6 +1,8 @@
 package eric.app.pabaproject
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -15,6 +17,12 @@ class TambahJenisOlahraga : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+
+        //intent balik ke halaman utama
+        val _btnKembali = findViewById<ImageView>(R.id.btnKembali)
+        _btnKembali.setOnClickListener{
+            startActivity(Intent(this, MainActivity::class.java))
         }
     }
 }
