@@ -2,12 +2,14 @@
     <string name="app_name">PabaProject</string>
 
     <string-array name="namaOlahraga">
-        <item>Bola Basket</item>
-        <item>Sepak Bola</item>
+        <item>Basket</item>
+        <item>Futsal</item>
+        <item>Mini Soccer</item>
         <item>Tenis</item>
         <item>Badminton</item>
-        <item>PingPong</item>
+        <item>Tenis Meja</item>
         <item>Golf</item>
+        <item>Billiard</item>
     </string-array>
 
     <string-array name="gambarOlahraga">

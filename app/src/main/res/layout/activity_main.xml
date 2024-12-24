@@ -77,26 +77,28 @@
         />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/jenisOlahraga"
+        android:id="@+id/rvJenisOlahraga"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:orientation="horizontal"
+        android:scrollbars="horizontal"
         />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:textSize="16dp"
         android:text="Lihat Promo"
         android:textStyle="bold"
         />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/promo"
+        android:id="@+id/rvPromo"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
