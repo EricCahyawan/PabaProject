@@ -181,11 +181,11 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView10"
+            android:id="@+id/biayaPerJam"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="TextView"
+            android:text="Rp 50.000,-"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/totalDurasi" />
 
@@ -197,7 +197,7 @@
             android:background="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView10" />
+            app:layout_constraintTop_toBottomOf="@+id/biayaPerJam" />
 
         <TextView
             android:id="@+id/textView12"
@@ -209,7 +209,7 @@
             app:layout_constraintTop_toBottomOf="@+id/line2" />
 
         <TextView
-            android:id="@+id/textView13"
+            android:id="@+id/tarifTotal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
@@ -218,7 +218,7 @@
             app:layout_constraintTop_toBottomOf="@+id/line2" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/pesanBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
