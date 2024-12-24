@@ -58,13 +58,10 @@ class dateSelection : Fragment() {
         }
 
         _backBtn.setOnClickListener {
-            val currentFragment = parentFragmentManager.findFragmentById(R.id.fragmentContainerJadwal) // yang dimaskud di fragment di android studio yaitu frame layout
-            if (currentFragment != null) {
-                val transaction = parentFragmentManager.beginTransaction()
-                transaction.remove(currentFragment)
-                transaction.addToBackStack(null)
-                transaction.commit()
-            }
+            val transaction = parentFragmentManager.beginTransaction()
+            transaction.replace(R.id.fragment_container, JadwalUntukPesanLapangan())
+            transaction.addToBackStack(null)
+            transaction.commit()
         }
 
         _saveBtn.setOnClickListener {

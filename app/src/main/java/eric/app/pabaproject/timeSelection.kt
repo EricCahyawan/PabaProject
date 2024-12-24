@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.ListView
+import android.widget.Toast
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -23,12 +25,13 @@ class timeSelection : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     lateinit var _lvTime: ListView
+    lateinit var _saveTimeBtn: Button
     var data: MutableList<String> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
+            param1 = it.getString("selectedTime")
             param2 = it.getString(ARG_PARAM2)
         }
     }
@@ -37,23 +40,51 @@ class timeSelection : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val view =  inflater.inflate(R.layout.fragment_time_selection, container, false)
         val insertData = listOf("06:00-07:59" , "08:00-09:59", "10:00-11:59", "12:00-13:59", "14:00-15:59", "16:00-17:59", "18:00-19:59", "20:00-21:59")
         data.addAll(insertData)
 
-        //parameter 1 adapter di fragment harus requireContext() bukan this
-        val lvAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, data)
+        // listview adapter
+        val lvAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_multiple_choice, data)
         _lvTime = view.findViewById(R.id.lvTime)
         _lvTime.adapter = lvAdapter
+        _lvTime.choiceMode = ListView.CHOICE_MODE_MULTIPLE
 
-        _lvTime.setOnItemClickListener{ parent, _, position, id ->
-            data.removeAt(position)
-            lvAdapter.notifyDataSetChanged()
+        if (param1 != null) {
+            val selectedTimes = param1!!.split(", ")
+            for (time in selectedTimes) {
+                val index = data.indexOf(time)
+                if (index >= 0) {
+                    _lvTime.setItemChecked(index, true)
+                }
+            }
         }
 
+        // save btn
+        _saveTimeBtn = view.findViewById(R.id.saveTimeBtn)
+        _saveTimeBtn.setOnClickListener {
+            val selectedItems = mutableListOf<String>()
+            for (i in 0 until _lvTime.count) {
+                if (_lvTime.isItemChecked(i)) {
+                    selectedItems.add(data[i])
+                }
+            }
 
+            val selectedTime = selectedItems.joinToString(", ")
+            val duration = selectedItems.size
+            val targetFragment = JadwalUntukPesanLapangan().apply {
+                arguments = Bundle().apply {
+                    putString("selectedTime", selectedTime)
+                    putString("duration", duration.toString())
+                }
+            }
 
+            Toast.makeText(requireContext(), "Selected Time: $selectedTime", Toast.LENGTH_SHORT).show()
+            val transaction = parentFragmentManager.beginTransaction()
+            transaction.replace(R.id.fragment_container, targetFragment)
+            transaction.addToBackStack(null)
+            transaction.commit()
+        }
         return view
     }
 

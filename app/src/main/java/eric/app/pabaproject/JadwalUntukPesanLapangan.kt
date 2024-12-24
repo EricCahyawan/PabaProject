@@ -1,5 +1,6 @@
 package eric.app.pabaproject
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,13 +15,15 @@ import java.util.Date
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
+private const val ARG_PARAM3 = "param3"
 
 class JadwalUntukPesanLapangan : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
+    private var param3: String? = null
     lateinit var _jamYgDipilih: TextView
     lateinit var _tanggalYgDipilih: TextView
-    var receivedDate: String = ""
+    lateinit var _totalDurasi: TextView
     val db = Firebase.firestore
 
 
@@ -29,55 +32,87 @@ class JadwalUntukPesanLapangan : Fragment() {
         arguments?.let {
             param1 = it.getString("selectedDate")
             param2 = it.getString("selectedTime")
+            param3 = it.getString("duration")
         }
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
         val view = inflater.inflate(R.layout.fragment_jadwal_untuk_pesan_lapangan, container, false)
+
+        // inisialisasi layout
         _jamYgDipilih = view.findViewById(R.id.jamYgDipilih)
         _tanggalYgDipilih = view.findViewById(R.id.tanggalYgDipilih)
+        _totalDurasi = view.findViewById(R.id.totalDurasi)
         val constraintLayoutTanggal: ConstraintLayout = view.findViewById(R.id.constraintLayoutTanggal)
         val constraintLayoutWaktu: ConstraintLayout = view.findViewById(R.id.constraintLayoutWaktu)
-        val calendar = Calendar.getInstance()
-        val tanggal = calendar.get(Calendar.DAY_OF_MONTH)
-        val bulan = calendar.get(Calendar.MONTH) + 1
-        val tahun = calendar.get(Calendar.YEAR)
-        val jam = calendar.get(Calendar.HOUR_OF_DAY)
-        val menit = calendar.get(Calendar.MINUTE)
-        _tanggalYgDipilih.setText("$tanggal/$bulan/$tahun")
-        _jamYgDipilih.setText("$jam:$menit")
-        if (param1 != null){
-            receivedDate = param1.toString()
-            _tanggalYgDipilih.setText(receivedDate)
+
+        //pengambilan param
+        if (param1 != null) {
+            val receivedDate = param1.toString()
+            _tanggalYgDipilih.text = receivedDate
         }
 
-        // Listener untuk mengganti fragment
+        val maxLength = 25
+        if (param2 != null) {
+            val receivedTime = param2.toString()
+            val truncatedText = if (receivedTime.length > maxLength) {
+                receivedTime.substring(0, maxLength) + "..."
+            } else {
+                receivedTime
+            }
+
+            _jamYgDipilih.text = truncatedText
+        }
+
+        if ( param3 != null ){
+            val duration = param3.toString()
+            _totalDurasi.text = "$duration jam"
+        }
+
+        // constraintLayout setOnClickListener
         constraintLayoutTanggal.setOnClickListener {
             val transaction = parentFragmentManager.beginTransaction()
-            transaction.replace(R.id.fragmentContainerJadwal, dateSelection())
-            transaction.addToBackStack(null) // Menambahkan ke backstack
-            transaction.commit() // Menyelesaikan transaksi
+            transaction.replace(R.id.fragment_container, dateSelection())
+            transaction.addToBackStack(null)
+            transaction.commit()
         }
 
         constraintLayoutWaktu.setOnClickListener {
-            val transaction = parentFragmentManager.beginTransaction()
-            transaction.replace(R.id.fragmentContainerJadwal, timeSelection())
-            transaction.addToBackStack(null) // agar saat ditekan back pada android akan kembali ke halaman sebelumnya
-            transaction.commit()
+            if (param2 != null){
+                val targetFragment = timeSelection().apply {
+                    arguments = Bundle().apply {
+                        putString("selectedTime", param2)
+                    }
+                }
+                val transaction = parentFragmentManager.beginTransaction()
+                transaction.replace(R.id.fragment_container, targetFragment)
+                transaction.addToBackStack(null)
+                transaction.commit()
+            }
+            else{
+                val transaction = parentFragmentManager.beginTransaction()
+                transaction.replace(R.id.fragment_container, timeSelection())
+                transaction.addToBackStack(null)
+                transaction.commit()
+            }
         }
         return view
     }
 
+
+
     companion object {
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance(param1: String, param2: String, param3: String) =
             JadwalUntukPesanLapangan().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
+                    putString(ARG_PARAM3, param3)
                 }
             }
     }
