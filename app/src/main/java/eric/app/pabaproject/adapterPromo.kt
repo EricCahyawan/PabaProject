@@ -13,7 +13,7 @@ class adapterPromo(private val listPromo: ArrayList<Promo>) : RecyclerView
     //inisialisasi
     inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         var _namaPromo = itemView.findViewById<TextView>(R.id.namaPromo)
-        var _gambarPromo = itemView.findViewById<ImageView>(R.id.gambarPromo)
+//        var _gambarPromo = itemView.findViewById<ImageView>(R.id.gambarPromo)
 
     }
 

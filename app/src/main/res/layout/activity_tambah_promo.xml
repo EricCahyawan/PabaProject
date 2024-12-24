@@ -65,11 +65,18 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:layout_gravity="center"
-        android:hint="contoh = 'Promo Natal'"
+        android:hint="Nama Promo 'Promo -'"
+        android:padding="8dp" />
+    <EditText
+        android:id="@+id/etLinkGambar"
+        android:layout_width="210dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:hint="Link Gambar 'URL'"
         android:padding="8dp" />
 
     <androidx.cardview.widget.CardView
-        android:layout_width="80dp"
+        android:layout_width="210dp"
         android:layout_height="30dp"
         android:layout_gravity="center"
         app:cardBackgroundColor="#697565"
@@ -86,7 +93,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="5dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="20dp"
         app:cardBackgroundColor="#3C3D37" />
 
 <!--    <TextView-->
