@@ -15,6 +15,9 @@
         android:theme="@style/Theme.PabaProject"
         tools:targetApi="31">
         <activity
+            android:name=".roberttest"
+            android:exported="false" />
+        <activity
             android:name=".TambahJenisOlahraga"
             android:exported="false" />
         <activity

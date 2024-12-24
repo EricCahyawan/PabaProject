@@ -42,10 +42,10 @@ class adapterJenisOlahraga (private val listJenisOlahraga: ArrayList<JenisOlahra
 
         //supaya gambar bisa di click
         holder._gambarOlahraga.setOnClickListener {
-        Toast.makeText(holder.itemView.context,JenisOlahraga.nama,Toast.LENGTH_LONG).show()
+//        Toast.makeText(holder.itemView.context,JenisOlahraga.nama,Toast.LENGTH_LONG).show()
+            onItemClickCallback.onItemClicked(listJenisOlahraga[position])
         }
     }
-
     //penambahan intent ketika click sesuatu
     private lateinit var onItemClickCallback: OnItemClickCallback
 
