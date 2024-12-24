@@ -12,7 +12,7 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         app:cardCornerRadius="40dp"
-        app:cardBackgroundColor="#697565"
+        app:cardBackgroundColor="@color/white"
         android:layout_gravity="center"
 
         >

@@ -24,5 +24,8 @@ class TambahPromo : AppCompatActivity() {
         _btnKembali.setOnClickListener{
             startActivity(Intent(this, MainActivity::class.java))
         }
+
+
+
     }
 }

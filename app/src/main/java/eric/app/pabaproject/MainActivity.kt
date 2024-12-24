@@ -32,7 +32,6 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
         if (savedInstanceState == null) {
             val fragment = JadwalUntukPesanLapangan()
             val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
@@ -80,7 +79,7 @@ class MainActivity : AppCompatActivity() {
 
         adapterJenisOlahraga.setOnItemClickCallback(object : adapterJenisOlahraga.OnItemClickCallback{
             override fun onItemClicked(data: JenisOlahraga) {
-                Toast.makeText(this@MainActivity,data.nama,Toast.LENGTH_LONG).show()
+//                Toast.makeText(this@MainActivity,data.nama,Toast.LENGTH_LONG).show()
 
                 //untuk intent
                 val intent = Intent (this@MainActivity,roberttest::class.java)
@@ -88,9 +87,5 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         })
-
-
     }
-
-
 }

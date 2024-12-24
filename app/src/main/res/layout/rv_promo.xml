@@ -33,6 +33,17 @@
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="10dp"/>
 
+        <TextView
+            android:id="@+id/deskripsi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="."
+            android:textStyle="bold"
+            android:textSize="13dp"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"/>
+
     </androidx.cardview.widget.CardView>
 
 
