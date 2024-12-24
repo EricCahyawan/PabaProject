@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.CalendarView
 import android.widget.TextView
+import androidx.lifecycle.ViewModelProvider
+import java.util.Calendar
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -28,6 +30,7 @@ class dateSelection : Fragment() {
     lateinit var _saveBtn: Button
     lateinit var _tanggalYgDipilih: TextView
     var selectedDate: String = ""
+    private lateinit var viewModel: jadwalUntukPesanLapanganViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,13 +51,27 @@ class dateSelection : Fragment() {
         _calendarView = view.findViewById(R.id.calendarView)
         _backBtn = view.findViewById(R.id.backBtn)
         _saveBtn = view.findViewById(R.id.saveBtn)
+        viewModel = ViewModelProvider(requireActivity())[jadwalUntukPesanLapanganViewModel::class.java]
 
-        _calendarView.setOnDateChangeListener {
-            view, year, month, dayOfMonth ->
+        if (viewModel.selectedDate != null) {
+            selectedDate = viewModel.selectedDate!!
+            _tanggalYgDipilih.text = selectedDate
+
+            // Split the date into components
+            val dateParts = selectedDate.split("/")
+            if (dateParts.size == 3) {
+                val day = dateParts[0].toInt()
+                val month = dateParts[1].toInt() - 1 // Month is zero-based in Calendar
+                val year = dateParts[2].toInt()
+                val calendar = Calendar.getInstance()
+                calendar.set(year, month, day)
+                _calendarView.date = calendar.timeInMillis
+            }
+        }
+
+        _calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
             selectedDate = "$dayOfMonth/${month + 1}/$year"
-
-            _tanggalYgDipilih.setText(selectedDate)
-
+            _tanggalYgDipilih.text = selectedDate
         }
 
         _backBtn.setOnClickListener {
@@ -65,18 +82,13 @@ class dateSelection : Fragment() {
         }
 
         _saveBtn.setOnClickListener {
-            val sendDate = selectedDate
-            val targetFragment = JadwalUntukPesanLapangan().apply {
-                arguments = Bundle().apply {
-                    putString("selectedDate", sendDate)
-                }
-            }
-
+            viewModel.selectedDate = selectedDate
             val transaction = parentFragmentManager.beginTransaction()
-            transaction.replace(R.id.fragment_container, targetFragment)
+            transaction.replace(R.id.fragment_container, JadwalUntukPesanLapangan())
             transaction.addToBackStack(null)
             transaction.commit()
         }
+
 
         return view
     }
