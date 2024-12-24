@@ -59,12 +59,12 @@ class MainActivity : AppCompatActivity() {
 //fungsi untuk jenisOlahraga
     fun SiapkanDataJenisOlahraga() {
         _namaOlahraga = resources.getStringArray(R.array.namaOlahraga)
-//        _gambarOlahraga = resources.getStringArray(R.array.gambarOlahraga)
+        _gambarOlahraga = resources.getStringArray(R.array.gambarOlahraga)
     }
     fun TambahDataJenisOlahraga(){
         for (position in _namaOlahraga.indices){
             val data = JenisOlahraga(
-//                _gambarOlahraga[position],
+                _gambarOlahraga[position],
                 _namaOlahraga[position]
             )
             _arJenisOlahraga.add(data)
