@@ -14,13 +14,14 @@
 
     <string-array name="gambarOlahraga">
         <item>https://static.vecteezy.com/system/resources/previews/000/627/315/original/basketball-icon-symbol-sign-vector.jpg</item>
+        <item>https://cdn1.iconfinder.com/data/icons/sport-equipment-18/32/futsal-1024.png</item>
         <item>https://png.pngtree.com/png-vector/20190928/ourlarge/pngtree-soccer-ball-icon-isometric-3d-style-png-image_1749152.jpg</item>
         <item>https://static.vecteezy.com/system/resources/previews/020/361/322/original/tennis-icon-tennis-racquet-illustration-sign-sport-symbol-or-logo-vector.jpg</item>
         <item>https://static.vecteezy.com/system/resources/previews/014/531/394/original/tennis-game-badminton-shuttlecock-icon-isolated-symbol-sign-free-vector.jpg</item>
         <item>https://static.vecteezy.com/system/resources/previews/000/421/949/original/ping-pong-icon-vector-illustration.jpg</item>
         <item>https://static.vecteezy.com/system/resources/previews/000/421/586/original/golf-icon-vector-illustration.jpg</item>
-        <item>https://static.vecteezy.com/system/resources/previews/000/421/586/original/golf-icon-vector-illustration.jpg</item>
-        <item>https://static.vecteezy.com/system/resources/previews/000/421/586/original/golf-icon-vector-illustration.jpg</item>
+        <item>https://static.vecteezy.com/system/resources/previews/037/204/546/non_2x/billiard-icon-logo-design-template-vector.jpg</item>
+
     </string-array>
 
 </resources>
