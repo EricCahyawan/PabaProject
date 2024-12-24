@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         //intent ke admin
         val _btnTambah = findViewById<ImageView>(R.id.btnTambah)
         _btnTambah.setOnClickListener{
-            startActivity(Intent(this, TambahJenisOlahraga::class.java))
+            startActivity(Intent(this, TambahPromo::class.java))
         }
 
         //lanjutan untuk hubungkan recyclerview jenis olahraga
