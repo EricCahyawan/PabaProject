@@ -43,17 +43,19 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+        //utk NAVBAR
         //intent ke admin
         val _btnAdmin = findViewById<ImageView>(R.id.btnAdmin)
         _btnAdmin.setOnClickListener{
             startActivity(Intent(this, TambahPromo::class.java))
         }
-
-        //intent ke admin
+        //intent ke home
         val _btnHome = findViewById<ImageView>(R.id.btnHome)
         _btnHome.setOnClickListener{
             startActivity(Intent(this, MainActivity::class.java))
         }
+
+
 
         //lanjutan untuk hubungkan recyclerview jenis olahraga
         _rvJenisOlahraga = findViewById<RecyclerView>(R.id.rvJenisOlahraga)

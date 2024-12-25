@@ -38,6 +38,18 @@ class TambahPromo : AppCompatActivity() {
             insets
         }
 
+        //utk NAVBAR
+        //intent ke admin
+        val _btnAdmin = findViewById<ImageView>(R.id.btnAdmin)
+        _btnAdmin.setOnClickListener{
+            startActivity(Intent(this, TambahPromo::class.java))
+        }
+        //intent ke home
+        val _btnHome = findViewById<ImageView>(R.id.btnHome)
+        _btnHome.setOnClickListener{
+            startActivity(Intent(this, MainActivity::class.java))
+        }
+
         // Intent balik ke halaman utama
         val _btnKembali = findViewById<ImageView>(R.id.btnKembali)
         _btnKembali.setOnClickListener {
