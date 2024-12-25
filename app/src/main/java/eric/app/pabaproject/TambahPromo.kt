@@ -44,7 +44,7 @@ class TambahPromo : AppCompatActivity() {
             startActivity(Intent(this, MainActivity::class.java))
         }
 
-        // Inisialisasi View
+        // Inisialisasi
         etNamaPromo = findViewById(R.id.etNamaPromo)
         etLinkGambar = findViewById(R.id.etLinkGambar)
         rvPromo = findViewById<RecyclerView>(R.id.rvPromo)
@@ -53,6 +53,9 @@ class TambahPromo : AppCompatActivity() {
         rvPromo.layoutManager = LinearLayoutManager(this)
         adapter = adapterPromo(promoList)
         rvPromo.adapter = adapter
+
+        //tampilkan data ketika di run awal
+        readData(db)
 
         // Tambah Data
         val btnTambah = findViewById<ImageView>(R.id.btnTambah)
@@ -78,10 +81,30 @@ class TambahPromo : AppCompatActivity() {
                     Log.d("Firebase", "Data Berhasil Disimpan")
                     promoList.add(dataBaru)
                     adapter.notifyDataSetChanged()
+                    readData(db)
                 }
                 .addOnFailureListener {
                     Log.d("Firebase", it.message.toString())
                 }
         }
+    }
+    fun readData(db: FirebaseFirestore){
+        db.collection("tbPromo").get()
+            .addOnSuccessListener {
+                result ->
+                promoList.clear()
+                for(document in result){
+                    val readData = Promo(
+                        document.data.get("nama").toString(),
+                        document.data.get("gambar").toString()
+                    )
+                    promoList.add(readData)
+                    adapter.notifyDataSetChanged()
+                }
+
+            }
+            .addOnFailureListener{
+                Log.d("Firebase",it.message.toString())
+            }
     }
 }

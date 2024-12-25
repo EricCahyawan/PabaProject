@@ -3,6 +3,7 @@ package eric.app.pabaproject
 import android.content.Intent
 import android.content.res.TypedArray
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -13,6 +14,9 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.firestore
 
 class MainActivity : AppCompatActivity() {
     lateinit var indext: TextView
@@ -22,6 +26,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var _gambarOlahraga : Array<String>
     private var _arJenisOlahraga = arrayListOf<JenisOlahraga>()
     private lateinit var _rvJenisOlahraga : RecyclerView
+
+    //untuk Promo dari firebase
+    val db = Firebase.firestore
+    var promoList = ArrayList<Promo>()
+    lateinit var adapter: adapterPromo
+    lateinit var rvPromo: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +60,15 @@ class MainActivity : AppCompatActivity() {
         SiapkanDataJenisOlahraga()
         TambahDataJenisOlahraga()
         TampilkanDataJenisOlahraga()
+
+        //tampilkan recyclerview nya promo dari firebase
+        rvPromo = findViewById(R.id.rvPromo)
+        rvPromo.layoutManager = LinearLayoutManager(this)
+        adapter = adapterPromo(promoList)
+        rvPromo.adapter = adapter
+
+        //tampilkan data ketika di run awal
+        readData(db)
 
     }
 
@@ -87,5 +106,26 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         })
+    }
+
+    //fungsi untuk baca firebase Promo
+    fun readData(db: FirebaseFirestore){
+        db.collection("tbPromo").get()
+            .addOnSuccessListener {
+                    result ->
+                promoList.clear()
+                for(document in result){
+                    val readData = Promo(
+                        document.data.get("nama").toString(),
+                        document.data.get("gambar").toString()
+                    )
+                    promoList.add(readData)
+                    adapter.notifyDataSetChanged()
+                }
+
+            }
+            .addOnFailureListener{
+                Log.d("Firebase",it.message.toString())
+            }
     }
 }
