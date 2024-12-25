@@ -63,6 +63,9 @@ class JadwalUntukPesanLapangan : Fragment() {
         val constraintLayoutTanggal: ConstraintLayout = view.findViewById(R.id.constraintLayoutTanggal)
         val constraintLayoutWaktu: ConstraintLayout = view.findViewById(R.id.constraintLayoutWaktu)
 
+        val namaLapangan = arguments?.getString("namaLapangan")
+
+        _namaLapangan.text = namaLapangan
         _tanggalYgDipilih.text = viewModel.selectedDate ?: "-"
         _totalDurasi.text = viewModel.duration ?: "-"
         if (viewModel.duration != null) {
