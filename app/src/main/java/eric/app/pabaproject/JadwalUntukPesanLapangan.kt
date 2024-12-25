@@ -1,12 +1,16 @@
 package eric.app.pabaproject
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.Firebase
@@ -25,6 +29,9 @@ class JadwalUntukPesanLapangan : Fragment() {
     lateinit var _totalDurasi: TextView
     lateinit var _tarifTotal: TextView
     lateinit var _biayaPerJam: TextView
+    lateinit var _namaLapangan: TextView
+    lateinit var _inputNama: EditText
+    lateinit var _pesanBtn: Button
     private lateinit var viewModel: jadwalUntukPesanLapanganViewModel
     val db = Firebase.firestore
 
@@ -45,11 +52,14 @@ class JadwalUntukPesanLapangan : Fragment() {
         val view = inflater.inflate(R.layout.fragment_jadwal_untuk_pesan_lapangan, container, false)
 
         // inisialisasi layout
+        _namaLapangan = view.findViewById(R.id.namaLapangan)
         _jamYgDipilih = view.findViewById(R.id.jamYgDipilih)
         _tanggalYgDipilih = view.findViewById(R.id.tanggalYgDipilih)
         _totalDurasi = view.findViewById(R.id.totalDurasi)
         _tarifTotal = view.findViewById(R.id.tarifTotal)
         _biayaPerJam = view.findViewById(R.id.biayaPerJam)
+        _pesanBtn = view.findViewById(R.id.pesanBtn)
+        _inputNama = view.findViewById(R.id.inputNama)
         val constraintLayoutTanggal: ConstraintLayout = view.findViewById(R.id.constraintLayoutTanggal)
         val constraintLayoutWaktu: ConstraintLayout = view.findViewById(R.id.constraintLayoutWaktu)
 
@@ -62,6 +72,7 @@ class JadwalUntukPesanLapangan : Fragment() {
         else{
             _tarifTotal.text = "-"
         }
+
         val maxLength = 25  // Atur panjang maksimum
         if (viewModel.selectedTime != null) {
             val selectedTime = viewModel.selectedTime
@@ -84,12 +95,54 @@ class JadwalUntukPesanLapangan : Fragment() {
             transaction.commit()
         }
 
-        constraintLayoutWaktu.setOnClickListener {
+        if ( viewModel.selectedDate!=null ){
+            constraintLayoutWaktu.setOnClickListener {
                 val transaction = parentFragmentManager.beginTransaction()
                 transaction.replace(R.id.fragment_container, timeSelection())
                 transaction.addToBackStack(null)
                 transaction.commit()
             }
+        }
+        else{
+            Toast.makeText(requireContext(), "Pilih tanggal terlebih dahulu", Toast.LENGTH_SHORT).show()
+        }
+
+        _pesanBtn.setOnClickListener {
+            viewModel.namaLapangan = _namaLapangan.text.toString()
+            viewModel.namaPemesan = _inputNama.text.toString()
+            val namaPemesan = viewModel.namaPemesan
+            val namaLapangan = viewModel.namaLapangan
+            val tanggalPesan = viewModel.selectedDate
+            val waktuPesan = viewModel.selectedTime
+            val durasi = viewModel.duration
+
+            if (tanggalPesan.isNullOrEmpty() || waktuPesan.isNullOrEmpty() || durasi.isNullOrEmpty()) {
+                Toast.makeText(requireContext(), "Pastikan semua data terisi dengan benar!", Toast.LENGTH_SHORT).show()
+            } else {
+                val pesananData = mapOf(
+                    "nama_pemesan" to namaPemesan,
+                    "nama_lapangan" to namaLapangan,
+                    "tanggal_pesan" to tanggalPesan,
+                    "waktu_pesan" to waktuPesan,
+                    "durasi" to durasi
+                )
+
+                db.collection("pesanan")
+                    .add(pesananData)
+                    .addOnSuccessListener {
+                        Toast.makeText(requireContext(), "Pesanan berhasil disimpan!", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(requireContext(), MainActivity::class.java)
+                        startActivity(intent)
+                        requireActivity().finish()
+                    }
+                    .addOnFailureListener { e ->
+                        Toast.makeText(requireContext(), "Gagal menyimpan pesanan: ${e.message}", Toast.LENGTH_SHORT).show()
+                    }
+            }
+        }
+
+
+
         return view
     }
 

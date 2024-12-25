@@ -82,6 +82,7 @@ class dateSelection : Fragment() {
         }
 
         _saveBtn.setOnClickListener {
+            viewModel.selectedTime = null
             viewModel.selectedDate = selectedDate
             val transaction = parentFragmentManager.beginTransaction()
             transaction.replace(R.id.fragment_container, JadwalUntukPesanLapangan())
