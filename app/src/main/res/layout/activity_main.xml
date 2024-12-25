@@ -9,64 +9,23 @@
     android:orientation="vertical"
     android:background="@color/white">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="130dp"
-        app:cardCornerRadius="10dp"
-        app:cardBackgroundColor="#ECDFCC">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:textStyle="bold"
-        android:textSize="25dp"
-        android:textColor="#181C14"
-        android:text="Selamat Datang,"/>
 
         <TextView
-            android:id="@+id/namaPengguna"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="60dp"
-            android:textStyle="bold"
-            android:textSize="22dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp"
+            android:text="Selamat Datang!"
             android:textColor="#181C14"
-            android:text="ROBERT TIONARDO"/>
-
-        <ImageView
-            android:id="@+id/btnNotifikasi"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="right"
-            android:layout_marginTop="60dp"
-            android:layout_marginRight="20dp"
-            android:src="@drawable/notif" />
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="right"
-            android:foregroundGravity="bottom"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="25dp"
-            app:cardBackgroundColor="#697565"
-            app:cardCornerRadius="10dp">
-            <ImageView
-                android:id="@+id/btnTambah"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_gravity="center"
-                android:src="@drawable/tambah"
-                />
-        </androidx.cardview.widget.CardView>
+            android:textSize="18dp"
+            android:textStyle="bold" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:layout_marginTop="123dp"
-            app:cardBackgroundColor="#3C3D37"/>
-    </androidx.cardview.widget.CardView>
+            android:layout_height="5dp"
+            android:layout_marginTop="15dp"
+            app:cardBackgroundColor="#3C3D37" />
+
 
     <TextView
         android:layout_width="match_parent"
@@ -98,23 +57,51 @@
         android:textStyle="bold"
         />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvPromo"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
-
-    </androidx.recyclerview.widget.RecyclerView>
-
-
-
-
     <FrameLayout
-        android:id="@+id/fragment_container"
-        android:layout_width="0dp"
-        android:layout_height="0dp" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvPromo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <com.google.android.material.navigation.NavigationView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="bottom"
+            android:background="@color/white">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <ImageView
+                    android:id="@+id/btnHome"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:src="@drawable/home" />
+
+                <ImageView
+                    android:id="@+id/btnAdmin"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:src="@drawable/admin" />
+
+            </LinearLayout>
+        </com.google.android.material.navigation.NavigationView>
+
+    </FrameLayout>
+
 
 </LinearLayout>

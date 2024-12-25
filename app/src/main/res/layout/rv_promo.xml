@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:gravity="center"
+    android:layout_gravity="center"
     android:orientation="vertical"
-    android:background="#ECDFCC">
+    android:layout_marginBottom="15dp"
+    >
 
 
     <androidx.cardview.widget.CardView
@@ -20,7 +21,8 @@
             android:id="@+id/gambarPromo"
             android:layout_width="match_parent"
             android:layout_height="130dp"
-            android:src="@drawable/ic_launcher_background"
+            android:src="@drawable/notif"
+            android:background="#7E99A3"
             />
 
         <TextView

@@ -42,17 +42,17 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        if (savedInstanceState == null) {
-            val fragment = JadwalUntukPesanLapangan()
-            val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.fragment_container, fragment)
-            transaction.commit()
+
+        //intent ke admin
+        val _btnAdmin = findViewById<ImageView>(R.id.btnAdmin)
+        _btnAdmin.setOnClickListener{
+            startActivity(Intent(this, TambahPromo::class.java))
         }
 
         //intent ke admin
-        val _btnTambah = findViewById<ImageView>(R.id.btnTambah)
-        _btnTambah.setOnClickListener{
-            startActivity(Intent(this, TambahPromo::class.java))
+        val _btnHome = findViewById<ImageView>(R.id.btnHome)
+        _btnHome.setOnClickListener{
+            startActivity(Intent(this, MainActivity::class.java))
         }
 
         //lanjutan untuk hubungkan recyclerview jenis olahraga
@@ -102,7 +102,8 @@ class MainActivity : AppCompatActivity() {
 
                 //untuk intent
                 val intent = Intent (this@MainActivity,roberttest::class.java)
-                intent.putExtra("kirimData", data)
+//                intent.putExtra("kirimData", data)
+                intent.putExtra("namaOlahraga", data.nama)
                 startActivity(intent)
             }
         })
