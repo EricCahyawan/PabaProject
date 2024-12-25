@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "1059767906011",
-    "project_id": "pabaproject-a675b",
-    "storage_bucket": "pabaproject-a675b.firebasestorage.app"
+    "project_number": "805844683309",
+    "project_id": "pabaproject-608ee",
+    "storage_bucket": "pabaproject-608ee.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1059767906011:android:469e678149af19339366fe",
+        "mobilesdk_app_id": "1:805844683309:android:b61e9a8f97d59070c5c6a4",
         "android_client_info": {
           "package_name": "eric.app.pabaproject"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBM6rkwQ6su2kTUWE1tYoTkeOkdSO1AKec"
+          "current_key": "AIzaSyDrA3HJgYIA5KyqdPCl67O9t51Y2-bSQTs"
         }
       ],
       "services": {
