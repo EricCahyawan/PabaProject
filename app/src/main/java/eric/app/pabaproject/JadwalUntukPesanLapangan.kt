@@ -1,13 +1,18 @@
 package eric.app.pabaproject
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
 import java.util.Calendar
@@ -15,28 +20,30 @@ import java.util.Date
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
-private const val ARG_PARAM3 = "param3"
 
 class JadwalUntukPesanLapangan : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
-    private var param3: String? = null
     lateinit var _jamYgDipilih: TextView
     lateinit var _tanggalYgDipilih: TextView
     lateinit var _totalDurasi: TextView
+    lateinit var _tarifTotal: TextView
+    lateinit var _biayaPerJam: TextView
+    lateinit var _namaLapangan: TextView
+    lateinit var _inputNama: EditText
+    lateinit var _pesanBtn: Button
+    private lateinit var viewModel: jadwalUntukPesanLapanganViewModel
     val db = Firebase.firestore
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString("selectedDate")
-            param2 = it.getString("selectedTime")
-            param3 = it.getString("duration")
+            param1 = it.getString(ARG_PARAM1)
+            param2 = it.getString(ARG_PARAM2)
         }
+        viewModel = ViewModelProvider(requireActivity())[jadwalUntukPesanLapanganViewModel::class.java]
     }
-
-    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,34 +52,40 @@ class JadwalUntukPesanLapangan : Fragment() {
         val view = inflater.inflate(R.layout.fragment_jadwal_untuk_pesan_lapangan, container, false)
 
         // inisialisasi layout
+        _namaLapangan = view.findViewById(R.id.namaLapangan)
         _jamYgDipilih = view.findViewById(R.id.jamYgDipilih)
         _tanggalYgDipilih = view.findViewById(R.id.tanggalYgDipilih)
         _totalDurasi = view.findViewById(R.id.totalDurasi)
+        _tarifTotal = view.findViewById(R.id.tarifTotal)
+        _biayaPerJam = view.findViewById(R.id.biayaPerJam)
+        _pesanBtn = view.findViewById(R.id.pesanBtn)
+        _inputNama = view.findViewById(R.id.inputNama)
         val constraintLayoutTanggal: ConstraintLayout = view.findViewById(R.id.constraintLayoutTanggal)
         val constraintLayoutWaktu: ConstraintLayout = view.findViewById(R.id.constraintLayoutWaktu)
 
-        //pengambilan param
-        if (param1 != null) {
-            val receivedDate = param1.toString()
-            _tanggalYgDipilih.text = receivedDate
+        _tanggalYgDipilih.text = viewModel.selectedDate ?: "-"
+        _totalDurasi.text = viewModel.duration ?: "-"
+        if (viewModel.duration != null) {
+            val tarifTotal = (viewModel.duration)?.toInt()?.times(50)
+            _tarifTotal.text = "Rp ${tarifTotal}.000,-"
+        }
+        else{
+            _tarifTotal.text = "-"
         }
 
-        val maxLength = 25
-        if (param2 != null) {
-            val receivedTime = param2.toString()
-            val truncatedText = if (receivedTime.length > maxLength) {
-                receivedTime.substring(0, maxLength) + "..."
+        val maxLength = 25  // Atur panjang maksimum
+        if (viewModel.selectedTime != null) {
+            val selectedTime = viewModel.selectedTime
+            val truncatedText = if (selectedTime?.length!! > maxLength) {
+                selectedTime.substring(0, maxLength) + "..."
             } else {
-                receivedTime
+                selectedTime
             }
-
             _jamYgDipilih.text = truncatedText
+        } else {
+            _jamYgDipilih.text = "-"
         }
 
-        if ( param3 != null ){
-            val duration = param3.toString()
-            _totalDurasi.text = "$duration jam"
-        }
 
         // constraintLayout setOnClickListener
         constraintLayoutTanggal.setOnClickListener {
@@ -82,37 +95,65 @@ class JadwalUntukPesanLapangan : Fragment() {
             transaction.commit()
         }
 
-        constraintLayoutWaktu.setOnClickListener {
-            if (param2 != null){
-                val targetFragment = timeSelection().apply {
-                    arguments = Bundle().apply {
-                        putString("selectedTime", param2)
-                    }
-                }
-                val transaction = parentFragmentManager.beginTransaction()
-                transaction.replace(R.id.fragment_container, targetFragment)
-                transaction.addToBackStack(null)
-                transaction.commit()
-            }
-            else{
+        if ( viewModel.selectedDate!=null ){
+            constraintLayoutWaktu.setOnClickListener {
                 val transaction = parentFragmentManager.beginTransaction()
                 transaction.replace(R.id.fragment_container, timeSelection())
                 transaction.addToBackStack(null)
                 transaction.commit()
             }
         }
+        else{
+            Toast.makeText(requireContext(), "Pilih tanggal terlebih dahulu", Toast.LENGTH_SHORT).show()
+        }
+
+        _pesanBtn.setOnClickListener {
+            viewModel.namaLapangan = _namaLapangan.text.toString()
+            viewModel.namaPemesan = _inputNama.text.toString()
+            val namaPemesan = viewModel.namaPemesan
+            val namaLapangan = viewModel.namaLapangan
+            val tanggalPesan = viewModel.selectedDate
+            val waktuPesan = viewModel.selectedTime
+            val durasi = viewModel.duration
+
+            if (tanggalPesan.isNullOrEmpty() || waktuPesan.isNullOrEmpty() || durasi.isNullOrEmpty()) {
+                Toast.makeText(requireContext(), "Pastikan semua data terisi dengan benar!", Toast.LENGTH_SHORT).show()
+            } else {
+                val pesananData = mapOf(
+                    "nama_pemesan" to namaPemesan,
+                    "nama_lapangan" to namaLapangan,
+                    "tanggal_pesan" to tanggalPesan,
+                    "waktu_pesan" to waktuPesan,
+                    "durasi" to durasi
+                )
+
+                db.collection("pesanan")
+                    .add(pesananData)
+                    .addOnSuccessListener {
+                        Toast.makeText(requireContext(), "Pesanan berhasil disimpan!", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(requireContext(), MainActivity::class.java)
+                        startActivity(intent)
+                        requireActivity().finish()
+                    }
+                    .addOnFailureListener { e ->
+                        Toast.makeText(requireContext(), "Gagal menyimpan pesanan: ${e.message}", Toast.LENGTH_SHORT).show()
+                    }
+            }
+        }
+
+
+
         return view
     }
 
 
 
     companion object {
-        fun newInstance(param1: String, param2: String, param3: String) =
+        fun newInstance(param1: String, param2: String) =
             JadwalUntukPesanLapangan().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
-                    putString(ARG_PARAM3, param3)
                 }
             }
     }
