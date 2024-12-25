@@ -17,7 +17,14 @@ class JadwalUntukPesanLapanganContainer : AppCompatActivity() {
             insets
         }
         if (savedInstanceState == null) {
+            val namaLapangan = intent.getStringExtra("namaLapangan") // Ambil data dari Intent
             val fragment = JadwalUntukPesanLapangan()
+
+            // Kirim data ke fragment melalui Bundle
+            val bundle = Bundle()
+            bundle.putString("namaLapangan", namaLapangan)
+            fragment.arguments = bundle
+
             val transaction= supportFragmentManager.beginTransaction()
             transaction.replace(R.id.fragment_container, fragment)
             transaction.commit()
