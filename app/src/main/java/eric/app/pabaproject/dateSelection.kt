@@ -53,6 +53,11 @@ class dateSelection : Fragment() {
         _saveBtn = view.findViewById(R.id.saveBtn)
         viewModel = ViewModelProvider(requireActivity())[jadwalUntukPesanLapanganViewModel::class.java]
 
+        // Tetapkan tanggal minimum (1 hari ke depan)
+        val calendar = Calendar.getInstance()
+        calendar.add(Calendar.DAY_OF_YEAR, 1) // Tambahkan 1 hari ke tanggal saat ini
+        _calendarView.minDate = calendar.timeInMillis
+
         if (viewModel.selectedDate != null) {
             selectedDate = viewModel.selectedDate!!
             _tanggalYgDipilih.text = selectedDate
@@ -89,7 +94,6 @@ class dateSelection : Fragment() {
             transaction.addToBackStack(null)
             transaction.commit()
         }
-
 
         return view
     }

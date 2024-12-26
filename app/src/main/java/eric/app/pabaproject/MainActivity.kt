@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 
         val _pindah = findViewById<Button>(R.id.pindah)
         _pindah.setOnClickListener {
-            val intent = Intent(this, DetailLapangan::class.java)
+            val intent = Intent(this, JadwalUntukPesanLapanganContainer::class.java)
             startActivity(intent)
         }
 

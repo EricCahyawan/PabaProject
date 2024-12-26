@@ -10,6 +10,8 @@ import android.widget.Button
 import android.widget.ListView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.firestore
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -29,6 +31,7 @@ class timeSelection : Fragment() {
     lateinit var _saveTimeBtn: Button
     var data: MutableList<String> = mutableListOf()
     private lateinit var viewModel: jadwalUntukPesanLapanganViewModel
+    val db = Firebase.firestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +56,28 @@ class timeSelection : Fragment() {
         _lvTime.adapter = lvAdapter
         _lvTime.choiceMode = ListView.CHOICE_MODE_MULTIPLE
 
+        val unavailableTimes = mutableListOf<String>()
+
+        db.collection("pesanan")
+            .whereEqualTo("tanggal_pesan", viewModel.selectedDate)
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    val time = document.getString("waktu_pesan")
+                    if (time != null) {
+                        val times = time.split(",").map { it.trim() }
+                        unavailableTimes.addAll(times)
+                    }
+                }
+
+                // Gunakan custom adapter setelah data unavailableTimes diperoleh
+                val lvAdapter = TimeSelectionAdapter(requireContext(), data, unavailableTimes)
+                _lvTime.adapter = lvAdapter
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(requireContext(), "Gagal memuat data: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+
         viewModel.selectedTime?.let { selectedTimes ->
             val previouslySelected = selectedTimes.split(", ").map { it.trim() }
             for (i in data.indices) {
@@ -61,6 +86,8 @@ class timeSelection : Fragment() {
                 }
             }
         }
+
+
 
         _saveTimeBtn = view.findViewById(R.id.saveTimeBtn)
         _saveTimeBtn.setOnClickListener {

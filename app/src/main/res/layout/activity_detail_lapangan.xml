@@ -184,18 +184,12 @@
     </ScrollView>
 
 
-
     <Button
+        android:id="@+id/pindah"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Pesan Lapangan"
         android:layout_marginTop="36dp"
-        android:id="@+id/pindah">
-    </Button>
-
-
-
-
+        android:text="Pesan Lapangan"></Button>
 
 
 </LinearLayout>
