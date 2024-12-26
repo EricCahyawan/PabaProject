@@ -36,20 +36,6 @@
         android:layout_marginTop="0dp"
         app:cardBackgroundColor="#3C3D37" />
 
-
-<!--    <Button-->
-<!--        android:id="@+id/btnTambahPromo"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Tambah Promo"/>-->
-
-<!--    <Button-->
-<!--        android:id="@+id/btnTambahLapangan"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Tambah Lapangan"/>-->
-
-
 <FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
