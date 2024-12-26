@@ -69,7 +69,22 @@ class roberttest : AppCompatActivity() {
         //tampilkan recyclerview nya promo dari firebase
         rvPromo = findViewById(R.id.rvpromo)
         rvPromo.layoutManager = LinearLayoutManager(this)
-        adapter = adapterPromo(promoList)
+        adapter = adapterPromo(
+            listPromo = promoList,
+            onItemDelete = { promo -> // Callback untuk menghapus promo
+                db.collection("tbPromo").document(promo.nama)
+                    .delete()
+                    .addOnSuccessListener {
+                        Log.d("Firebase", "Promo berhasil dihapus.")
+                        promoList.remove(promo) // Hapus dari daftar lokal
+                        adapter.notifyDataSetChanged()
+                    }
+                    .addOnFailureListener { e ->
+                        Log.w("Firebase", "Gagal menghapus promo: ${e.message}")
+                    }
+            },
+            isAdmin = false
+        )
         rvPromo.adapter = adapter
 
 

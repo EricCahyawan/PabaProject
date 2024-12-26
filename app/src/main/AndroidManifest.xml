@@ -15,6 +15,9 @@
         android:theme="@style/Theme.PabaProject"
         tools:targetApi="31">
         <activity
+            android:name=".HalamanAdmin"
+            android:exported="false" />
+        <activity
             android:name=".TambahPromo"
             android:exported="false" />
         <activity

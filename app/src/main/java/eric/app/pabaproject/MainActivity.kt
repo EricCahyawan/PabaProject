@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         //intent ke admin
         val _btnAdmin = findViewById<ImageView>(R.id.btnAdmin)
         _btnAdmin.setOnClickListener{
-            startActivity(Intent(this, TambahPromo::class.java))
+            startActivity(Intent(this, HalamanAdmin::class.java))
         }
         //intent ke home
         val _btnHome = findViewById<ImageView>(R.id.btnHome)
@@ -66,7 +66,22 @@ class MainActivity : AppCompatActivity() {
         //tampilkan recyclerview nya promo dari firebase
         rvPromo = findViewById(R.id.rvPromo)
         rvPromo.layoutManager = LinearLayoutManager(this)
-        adapter = adapterPromo(promoList)
+        adapter = adapterPromo(
+            listPromo = promoList,
+            onItemDelete = { promo -> // Callback untuk menghapus promo
+                db.collection("tbPromo").document(promo.nama)
+                    .delete()
+                    .addOnSuccessListener {
+                        Log.d("Firebase", "Promo berhasil dihapus.")
+                        promoList.remove(promo) // Hapus dari daftar lokal
+                        adapter.notifyDataSetChanged()
+                    }
+                    .addOnFailureListener { e ->
+                        Log.w("Firebase", "Gagal menghapus promo: ${e.message}")
+                    }
+            },
+            isAdmin = false
+        )
         rvPromo.adapter = adapter
 
         //tampilkan data ketika di run awal
@@ -98,10 +113,10 @@ class MainActivity : AppCompatActivity() {
         val adapterJenisOlahraga = adapterJenisOlahraga(_arJenisOlahraga)
         _rvJenisOlahraga.adapter = adapterJenisOlahraga
 
+        //intent dari gambar icon folder resources
         adapterJenisOlahraga.setOnItemClickCallback(object : adapterJenisOlahraga.OnItemClickCallback{
             override fun onItemClicked(data: JenisOlahraga) {
 //                Toast.makeText(this@MainActivity,data.nama,Toast.LENGTH_LONG).show()
-
                 //untuk intent
                 val intent = Intent (this@MainActivity,roberttest::class.java)
 //                intent.putExtra("kirimData", data)
