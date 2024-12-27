@@ -74,19 +74,23 @@ class MetodePembayaran : AppCompatActivity() {
         val durasi = intent.getStringExtra("durasi")
         val tarifTotal = intent.getIntExtra("tarif_total", 0)
 
-        // Format rincian pesanan
-        val rincian = """
-            Nama Pemesan : $namaPemesan
-            Nama Lapangan: $namaLapangan
-            Tanggal Pesan: $tanggalPesan
-            Waktu Pesan  : $waktuPesan
-            Durasi       : $durasi Jam
-            Total Tarif  : Rp $tarifTotal
-        """.trimIndent()
+        val namaPemesanTextView = findViewById<TextView>(R.id.tvNamaPemesan)
+        namaPemesanTextView.text = "Nama Pemesan: $namaPemesan"
 
+        val namaLapanganTextView = findViewById<TextView>(R.id.tvNamaLapangan)
+        namaLapanganTextView.text = "Nama Lapangan: $namaLapangan"
 
-        val rincianPesananTextView = findViewById<TextView>(R.id.rincianPesanan)
-        rincianPesananTextView.text = rincian
+        val tanggalPesanTextView = findViewById<TextView>(R.id.tvTanggalPesan)
+        tanggalPesanTextView.text = "Tanggal Pesan: $tanggalPesan"
+
+        val waktuPesanTextView = findViewById<TextView>(R.id.tvWaktuPesan)
+        waktuPesanTextView.text = "Waktu Pesan: $waktuPesan"
+
+        val durasiTextView = findViewById<TextView>(R.id.tvDurasi)
+        durasiTextView.text = "Durasi: $durasi Jam"
+
+        val tarifTotalTextView = findViewById<TextView>(R.id.tvTarifTotal)
+        tarifTotalTextView.text = "Total Tarif: Rp $tarifTotal"
 
         bayarButton.setOnClickListener {
             val selectedRadioButtonId = radioGroup.checkedRadioButtonId

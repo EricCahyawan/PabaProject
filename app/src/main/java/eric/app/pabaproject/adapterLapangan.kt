@@ -1,5 +1,6 @@
 package eric.app.pabaproject
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,8 +9,26 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 
+
+
+
+
 class adapterLapangan (private val listLapangan: ArrayList<Lapangan>) : RecyclerView
 .Adapter<adapterLapangan.ListViewHolder> () {
+
+    private lateinit var onItemClickCallback: OnItemClickCallback
+
+    interface OnItemClickCallback {
+        fun onItemClicked(data: Lapangan)
+
+    }
+
+    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallback
+
+    }
+
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -32,7 +51,20 @@ class adapterLapangan (private val listLapangan: ArrayList<Lapangan>) : Recycler
         Picasso.get()
             .load(Lapangan.gambar)
             .into(holder._gambarLapangan)
+
+       holder.itemView.setOnClickListener {
+           val intent = Intent(holder.itemView.context, DetailLapangan::class.java).apply {
+               putExtra("nama_lapangan", Lapangan.nama)
+               putExtra("harga_lapangan", Lapangan.harga)
+               putExtra("gambar_lapangan", Lapangan.gambar)
+               putExtra("deskripsi_lapangan",Lapangan.deskripsi)
+               putExtra("lokasi_lapangan",Lapangan.lokasi)
+               putExtra("jam_tersedia",Lapangan.jamTersedia)
+           }
+           holder.itemView.context.startActivity(intent)
+       }
     }
+
 
     override fun getItemCount(): Int {
         return listLapangan.size

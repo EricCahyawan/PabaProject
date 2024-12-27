@@ -53,6 +53,5 @@ dependencies {
 
     //tambahan untuk pemanggilan gambar di JenisOlahraga pakai picasso (di build gradle kts jg ada)
     implementation(libs.picasso)
-
     implementation(libs.core)
 }
