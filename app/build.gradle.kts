@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.google.gms.google.services)
+
+    alias(libs.plugins.kotlinParcelize)
 }
 
 android {
@@ -11,7 +13,7 @@ android {
     defaultConfig {
         applicationId = "eric.app.pabaproject"
         minSdk = 29
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -47,4 +49,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    //tambahan untuk pemanggilan gambar di JenisOlahraga pakai picasso (di build gradle kts jg ada)
+    implementation(libs.picasso)
 }
