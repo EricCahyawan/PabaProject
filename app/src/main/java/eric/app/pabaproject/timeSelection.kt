@@ -9,6 +9,9 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.firestore
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -27,6 +30,8 @@ class timeSelection : Fragment() {
     lateinit var _lvTime: ListView
     lateinit var _saveTimeBtn: Button
     var data: MutableList<String> = mutableListOf()
+    private lateinit var viewModel: jadwalUntukPesanLapanganViewModel
+    val db = Firebase.firestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,33 +39,56 @@ class timeSelection : Fragment() {
             param1 = it.getString("selectedTime")
             param2 = it.getString(ARG_PARAM2)
         }
+        viewModel = ViewModelProvider(requireActivity())[jadwalUntukPesanLapanganViewModel::class.java]
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        // Inflate the layout for this fragment
         val view =  inflater.inflate(R.layout.fragment_time_selection, container, false)
         val insertData = listOf("06:00-07:59" , "08:00-09:59", "10:00-11:59", "12:00-13:59", "14:00-15:59", "16:00-17:59", "18:00-19:59", "20:00-21:59")
         data.addAll(insertData)
 
-        // listview adapter
         val lvAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_multiple_choice, data)
         _lvTime = view.findViewById(R.id.lvTime)
         _lvTime.adapter = lvAdapter
         _lvTime.choiceMode = ListView.CHOICE_MODE_MULTIPLE
 
-        if (param1 != null) {
-            val selectedTimes = param1!!.split(", ")
-            for (time in selectedTimes) {
-                val index = data.indexOf(time)
-                if (index >= 0) {
-                    _lvTime.setItemChecked(index, true)
+        val unavailableTimes = mutableListOf<String>()
+
+        db.collection("pesanan")
+            .whereEqualTo("tanggal_pesan", viewModel.selectedDate)
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    val time = document.getString("waktu_pesan")
+                    if (time != null) {
+                        val times = time.split(",").map { it.trim() }
+                        unavailableTimes.addAll(times)
+                    }
+                }
+
+                // Gunakan custom adapter setelah data unavailableTimes diperoleh
+                val lvAdapter = TimeSelectionAdapter(requireContext(), data, unavailableTimes)
+                _lvTime.adapter = lvAdapter
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(requireContext(), "Gagal memuat data: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+
+        viewModel.selectedTime?.let { selectedTimes ->
+            val previouslySelected = selectedTimes.split(", ").map { it.trim() }
+            for (i in data.indices) {
+                if (previouslySelected.contains(data[i])) {
+                    _lvTime.setItemChecked(i, true)
                 }
             }
         }
 
-        // save btn
+
+
         _saveTimeBtn = view.findViewById(R.id.saveTimeBtn)
         _saveTimeBtn.setOnClickListener {
             val selectedItems = mutableListOf<String>()
@@ -72,16 +100,13 @@ class timeSelection : Fragment() {
 
             val selectedTime = selectedItems.joinToString(", ")
             val duration = selectedItems.size
-            val targetFragment = JadwalUntukPesanLapangan().apply {
-                arguments = Bundle().apply {
-                    putString("selectedTime", selectedTime)
-                    putString("duration", duration.toString())
-                }
-            }
 
-            Toast.makeText(requireContext(), "Selected Time: $selectedTime", Toast.LENGTH_SHORT).show()
+            viewModel.selectedTime = selectedTime
+            viewModel.duration = duration.toString()
+
+            Toast.makeText(requireContext(), "Waktu berhasil dipilih", Toast.LENGTH_SHORT).show()
             val transaction = parentFragmentManager.beginTransaction()
-            transaction.replace(R.id.fragment_container, targetFragment)
+            transaction.replace(R.id.fragment_container, JadwalUntukPesanLapangan())
             transaction.addToBackStack(null)
             transaction.commit()
         }
