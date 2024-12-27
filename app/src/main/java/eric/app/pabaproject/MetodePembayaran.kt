@@ -3,6 +3,7 @@ package eric.app.pabaproject
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
@@ -15,6 +16,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.firestore
 
 class MetodePembayaran : AppCompatActivity() {
 
@@ -23,6 +26,7 @@ class MetodePembayaran : AppCompatActivity() {
     private lateinit var btnUploadBukti: Button
     private var imageUri: Uri? = null
     private lateinit var imageViewBuktiTransfer: ImageView
+    val db = Firebase.firestore
 
 
     companion object {
@@ -92,17 +96,46 @@ class MetodePembayaran : AppCompatActivity() {
         val tarifTotalTextView = findViewById<TextView>(R.id.tvTarifTotal)
         tarifTotalTextView.text = "Total Tarif: Rp $tarifTotal"
 
+
+
+
         bayarButton.setOnClickListener {
             val selectedRadioButtonId = radioGroup.checkedRadioButtonId
 
             if (selectedRadioButtonId != -1) {
-                val selectedPaymentMethod = findViewById<RadioButton>(selectedRadioButtonId).text.toString()
-                Toast.makeText(this, "Pembayaran dengan $selectedPaymentMethod berhasil!", Toast.LENGTH_SHORT).show()
 
-                // Proses pembayaran selesai, kembali ke halaman utama
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-                this.finish()
+                val selectedPaymentMethod = findViewById<RadioButton>(selectedRadioButtonId).text.toString()
+
+                val paymentStatus = if (selectedPaymentMethod == "Transfer Bank") {
+                    "Bukti Transfer: $imageUri"
+                } else {
+                    "Bayar Tunai"
+                }
+                // Data yang akan disimpan ke Firestore
+                val orderData = hashMapOf(
+                    "namaPemesan" to namaPemesan,
+                    "namaLapangan" to namaLapangan,
+                    "tanggalPesan" to tanggalPesan,
+                    "waktuPesan" to waktuPesan,
+                    "durasi" to durasi,
+                    "tarifTotal" to tarifTotal,
+                    "metodePembayaran" to selectedPaymentMethod,
+                    "statusPembayaran" to paymentStatus
+                )
+                // Simpan data ke Firestore
+                db.collection("orders")
+                    .add(orderData)
+                    .addOnSuccessListener {
+                        Toast.makeText(this, "Pembayaran Berhasil dan Pesanan berhasil disimpan!", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this, MainActivity::class.java)
+                        startActivity(intent)
+                        this.finish()
+                    }
+                    .addOnFailureListener { e ->
+                        e.printStackTrace() // Menampilkan stack trace di logcat
+                        Log.e("FirestoreError", "Error: ${e.message}")
+                        Toast.makeText(this, "Gagal menyimpan pesanan: ${e.message}", Toast.LENGTH_SHORT).show()
+                    }
             } else {
                 Toast.makeText(this, "Silakan pilih metode pembayaran terlebih dahulu!", Toast.LENGTH_SHORT).show()
             }

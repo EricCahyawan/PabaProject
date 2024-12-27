@@ -1,12 +1,17 @@
 package eric.app.pabaproject
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.zxing.BarcodeFormat
+import com.google.zxing.WriterException
+import com.google.zxing.qrcode.QRCodeWriter
 import com.squareup.picasso.Picasso
 
 
@@ -52,6 +57,9 @@ class adapterLapangan (private val listLapangan: ArrayList<Lapangan>) : Recycler
             .load(Lapangan.gambar)
             .into(holder._gambarLapangan)
 
+        val qrCodeBitmap = generateQRCode(Lapangan)
+        holder.qrCode.setImageBitmap(qrCodeBitmap)
+
        holder.itemView.setOnClickListener {
            val intent = Intent(holder.itemView.context, DetailLapangan::class.java).apply {
                putExtra("nama_lapangan", Lapangan.nama)
@@ -65,6 +73,35 @@ class adapterLapangan (private val listLapangan: ArrayList<Lapangan>) : Recycler
        }
     }
 
+    private fun generateQRCode(Lapangan: Lapangan): Bitmap {
+        val size = 512
+        val qrCodeWriter = QRCodeWriter()
+        val text = formatTicketDetails(Lapangan)
+        return try {
+            val bitMatrix = qrCodeWriter.encode(text, BarcodeFormat.QR_CODE, size, size)
+            val bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.RGB_565)
+            for (x in 0 until size) {
+                for (y in 0 until size) {
+                    bitmap.setPixel(x, y, if (bitMatrix[x, y]) Color.BLACK else Color.WHITE)
+                }
+            }
+            bitmap
+        } catch (e: WriterException) {
+            Bitmap.createBitmap(size, size, Bitmap.Config.RGB_565)
+        }
+    }
+    private fun formatTicketDetails(Lapangan: Lapangan): String {
+        return """
+        Nama Lapangan: ${Lapangan.nama}
+        Harga: ${Lapangan.harga}
+        Jam Operasional: ${Lapangan.jamTersedia}
+        Lokasi: ${Lapangan.lokasi}
+        Deskripsi: ${Lapangan.deskripsi}
+        Kategori: ${Lapangan.kategori}
+    """.trimIndent()
+    }
+
+
 
     override fun getItemCount(): Int {
         return listLapangan.size
@@ -75,6 +112,7 @@ class adapterLapangan (private val listLapangan: ArrayList<Lapangan>) : Recycler
         var _namaLapangan = itemView.findViewById<TextView>(R.id.namaLapangan)
         var _gambarLapangan = itemView.findViewById<ImageView>(R.id.gambarLapangan)
         var _hargaLapangan = itemView.findViewById<TextView>(R.id.hargaLapangan)
+        val qrCode = itemView.findViewById<ImageView>(R.id.qrCode)
     }
 
 

@@ -69,6 +69,14 @@
                         android:textColor="@color/white"
                         android:text=" / jam"/>
 
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginLeft="16dp"
+                        android:id="@+id/qrCode">
+
+                    </ImageView>
+
                 </LinearLayout>
 
 
