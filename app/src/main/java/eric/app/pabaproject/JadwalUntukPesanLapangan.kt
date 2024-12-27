@@ -122,6 +122,7 @@ class JadwalUntukPesanLapangan : Fragment() {
             if (tanggalPesan.isNullOrEmpty() || waktuPesan.isNullOrEmpty() || durasi.isNullOrEmpty()) {
                 Toast.makeText(requireContext(), "Pastikan semua data terisi dengan benar!", Toast.LENGTH_SHORT).show()
             } else {
+                val tarifTotal = durasi.toInt() * 50_000
                 val pesananData = mapOf(
                     "nama_pemesan" to namaPemesan,
                     "nama_lapangan" to namaLapangan,
@@ -133,8 +134,15 @@ class JadwalUntukPesanLapangan : Fragment() {
                 db.collection("pesanan")
                     .add(pesananData)
                     .addOnSuccessListener {
-                        Toast.makeText(requireContext(), "Pesanan berhasil disimpan!", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(requireContext(), MainActivity::class.java)
+                        val intent = Intent(requireContext(), MetodePembayaran::class.java)
+                        intent.putExtra("nama_pemesan", namaPemesan)
+                        intent.putExtra("nama_lapangan", namaLapangan)
+                        intent.putExtra("tanggal_pesan", tanggalPesan)
+                        intent.putExtra("waktu_pesan", waktuPesan)
+                        intent.putExtra("durasi", durasi)
+                        intent.putExtra("tarif_total", tarifTotal)
+//                        Toast.makeText(requireContext(), "Pesanan berhasil disimpan!", Toast.LENGTH_SHORT).show()
+//                        val intent = Intent(requireContext(), MainActivity::class.java)
                         startActivity(intent)
                         requireActivity().finish()
                     }
