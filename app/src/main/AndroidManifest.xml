@@ -18,6 +18,19 @@
         android:theme="@style/Theme.PabaProject"
         tools:targetApi="31">
         <activity
+            android:name=".TambahLapangan"
+            android:exported="false" />
+        <activity
+            android:name=".PilihanLapangan"
+            android:exported="false" />
+        <activity
+            android:name=".HalamanAdmin"
+            android:exported="false" />
+        <activity
+            android:name=".TambahPromo"
+            android:exported="false" />
+        <activity
+            android:name=".roberttest"
             android:name=".MetodePembayaran"
             android:exported="false" />
         <activity

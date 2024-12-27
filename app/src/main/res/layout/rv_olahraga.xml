@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_marginRight="15dp">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/bgGambarOlahraga"
+        android:layout_margin="5dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:cardCornerRadius="40dp"
+        app:cardBackgroundColor="@color/white"
+        android:layout_gravity="center"
+
+        >
+
+        <ImageView
+            android:id="@+id/gambarOlahraga"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_launcher_foreground"
+            />
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/namaOlahraga"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="nama olahraga"
+        android:layout_gravity="center"
+        android:textStyle="bold"
+        />
+
+
+</LinearLayout>

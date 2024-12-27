@@ -1,42 +1,38 @@
 package eric.app.pabaproject
 
 import android.content.Intent
-import android.content.res.TypedArray
 import android.os.Bundle
 import android.util.Log
+import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore
 
-class MainActivity : AppCompatActivity() {
-    lateinit var indext: TextView
+class TambahPromo : AppCompatActivity() {
 
-    //untuk recylerview jenisOlahraga
-    private lateinit var _namaOlahraga : Array<String>
-    private lateinit var _gambarOlahraga : Array<String>
-    private var _arJenisOlahraga = arrayListOf<JenisOlahraga>()
-    private lateinit var _rvJenisOlahraga : RecyclerView
-
-    //untuk Promo dari firebase
+    // Untuk Firebase
     val db = Firebase.firestore
+    lateinit var etNamaPromo: EditText
+    lateinit var etLinkGambar: EditText
+    lateinit var rvPromo: RecyclerView
     var promoList = ArrayList<Promo>()
     lateinit var adapter: adapterPromo
-    lateinit var rvPromo: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_tambah_promo)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -55,16 +51,18 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, MainActivity::class.java))
         }
 
+        // Intent balik ke halaman sebelumnya
+        val _btnKembali = findViewById<ImageView>(R.id.btnKembali)
+        _btnKembali.setOnClickListener {
+            startActivity(Intent(this, HalamanAdmin::class.java))
+        }
 
+        // Inisialisasi
+        etNamaPromo = findViewById(R.id.etNamaPromo)
+        etLinkGambar = findViewById(R.id.etLinkGambar)
+        rvPromo = findViewById<RecyclerView>(R.id.rvPromo)
 
-        //lanjutan untuk hubungkan recyclerview jenis olahraga
-        _rvJenisOlahraga = findViewById<RecyclerView>(R.id.rvJenisOlahraga)
-        SiapkanDataJenisOlahraga()
-        TambahDataJenisOlahraga()
-        TampilkanDataJenisOlahraga()
-
-        //tampilkan recyclerview nya promo dari firebase
-        rvPromo = findViewById(R.id.rvPromo)
+        // Atur RecyclerView
         rvPromo.layoutManager = LinearLayoutManager(this)
         adapter = adapterPromo(
             listPromo = promoList,
@@ -80,53 +78,47 @@ class MainActivity : AppCompatActivity() {
                         Log.w("Firebase", "Gagal menghapus promo: ${e.message}")
                     }
             },
-            isAdmin = false
+            isAdmin = true
         )
         rvPromo.adapter = adapter
 
         //tampilkan data ketika di run awal
         readData(db)
 
+        // Tambah Data
+        val btnTambah = findViewById<CardView>(R.id.btnTambah)
+        btnTambah.setOnClickListener {
+            TambahData(db, etNamaPromo.text.toString(), etLinkGambar.text.toString())
+        }
+
+
     }
 
+    // Fungsi Firebase
+    fun TambahData(db: FirebaseFirestore, nama: String, gambar: String) {
+        if (nama.isEmpty() || gambar.isEmpty()) {
+            Toast.makeText(this, "Nama dan link gambar tidak boleh kosong", Toast.LENGTH_SHORT).show()
+            return
+        }
+        else {
 
-
-    //fungsi untuk jenisOlahraga
-    fun SiapkanDataJenisOlahraga() {
-        _namaOlahraga = resources.getStringArray(R.array.namaOlahraga)
-        _gambarOlahraga = resources.getStringArray(R.array.gambarOlahraga)
-    }
-    fun TambahDataJenisOlahraga(){
-        for (position in _namaOlahraga.indices){
-            val data = JenisOlahraga(
-                _gambarOlahraga[position],
-                _namaOlahraga[position]
-            )
-            _arJenisOlahraga.add(data)
+            val dataBaru = Promo(nama, gambar)
+            db.collection("tbPromo")
+                .document(dataBaru.nama)
+                .set(dataBaru)
+                .addOnSuccessListener {
+                    etNamaPromo.setText("")
+                    etLinkGambar.setText("")
+                    Log.d("Firebase", "Data Berhasil Disimpan")
+                    promoList.add(dataBaru)
+                    adapter.notifyDataSetChanged()
+                    readData(db)
+                }
+                .addOnFailureListener {
+                    Log.d("Firebase", it.message.toString())
+                }
         }
     }
-    fun TampilkanDataJenisOlahraga(){
-        _rvJenisOlahraga.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        _rvJenisOlahraga.adapter = adapterJenisOlahraga(_arJenisOlahraga)
-
-        //inisialisasi untuk adapter
-        val adapterJenisOlahraga = adapterJenisOlahraga(_arJenisOlahraga)
-        _rvJenisOlahraga.adapter = adapterJenisOlahraga
-
-        //intent dari gambar icon folder resources
-        adapterJenisOlahraga.setOnItemClickCallback(object : adapterJenisOlahraga.OnItemClickCallback{
-            override fun onItemClicked(data: JenisOlahraga) {
-//                Toast.makeText(this@MainActivity,data.nama,Toast.LENGTH_LONG).show()
-                //untuk intent
-                val intent = Intent (this@MainActivity, PilihanLapangan::class.java)
-//                intent.putExtra("kirimData", data)
-                intent.putExtra("namaOlahraga", data.nama)
-                startActivity(intent)
-            }
-        })
-    }
-
-    //fungsi untuk baca firebase Promo
     fun readData(db: FirebaseFirestore){
         db.collection("tbPromo").get()
             .addOnSuccessListener {
