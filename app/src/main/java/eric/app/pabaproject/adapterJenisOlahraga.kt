@@ -23,7 +23,6 @@ class adapterJenisOlahraga (private val listJenisOlahraga: ArrayList<JenisOlahra
         val view: View = LayoutInflater.from(parent.context)
             .inflate(R.layout.rv_olahraga,parent , false)
         return ListViewHolder(view)
-        //
     }
 
     //bawaan
