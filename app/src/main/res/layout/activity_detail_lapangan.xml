@@ -8,6 +8,7 @@
     tools:context=".DetailLapangan"
     android:orientation="vertical"
     android:padding="24dp"
+    android:layout_margin="24dp"
     >
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,6 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/backbutton"
+            android:id="@+id/backButton"
             >
 
         </ImageView>
@@ -40,7 +42,8 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_launcher_background"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp">
+        android:layout_marginBottom="16dp"
+        android:id="@+id/gambarLapangan">
 
     </ImageView>
 
@@ -123,11 +126,46 @@
 
                 </ImageView>
                 <TextView
+                    android:id="@+id/jamOperasional"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="06.00 - 23.59 WIB"
                     android:textSize="16sp"
                     android:layout_marginLeft="16dp"
+                    android:layout_marginTop="12dp">
+
+                </TextView>
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/money">
+
+                </ImageView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rp"
+                    android:textSize="16sp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="12dp">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/hargaLapangan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Rp.50.000"
+                    android:textSize="16sp"
+                    android:layout_marginLeft="8dp"
                     android:layout_marginTop="12dp">
 
                 </TextView>
@@ -147,7 +185,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Jl ......"
-                android:layout_marginTop="8dp">
+                android:layout_marginTop="8dp"
+                android:id="@+id/lokasiLapangan">
 
             </TextView>
 
@@ -164,9 +203,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
-                android:layout_marginTop="8dp">
+                android:layout_marginTop="8dp"
+                android:id="@+id/deskripsiLapangan">
 
             </TextView>
+
+
 
 
 
@@ -189,7 +231,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
-        android:text="Pesan Lapangan"></Button>
+        android:backgroundTint="#697565"
+        android:text="Pesan Lapangan">
+
+    </Button>
 
 
 </LinearLayout>

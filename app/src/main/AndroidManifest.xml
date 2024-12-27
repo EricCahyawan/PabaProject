@@ -30,7 +30,6 @@
             android:name=".TambahPromo"
             android:exported="false" />
         <activity
-            android:name=".roberttest"
             android:name=".MetodePembayaran"
             android:exported="false" />
         <activity
