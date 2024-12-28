@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TambahPromo"
+    tools:context=".Robert.Promo.TambahPromo"
     android:orientation="vertical"
     android:background="@color/white">
 
@@ -29,9 +29,6 @@
             android:textColor="#181C14"
             android:textSize="18dp"
             android:textStyle="bold" />
-
-
-
 </LinearLayout>
 
         <androidx.cardview.widget.CardView
@@ -47,7 +44,8 @@
         android:gravity="center"
         android:text="Tambah Promo Baru"
         android:textSize="22dp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textColor="@color/black"/>
 
     <EditText
         android:id="@+id/etNamaPromo"
@@ -56,6 +54,8 @@
         android:layout_margin="10dp"
         android:layout_gravity="center"
         android:hint="Nama Promo 'Promo -'"
+        android:textColor="@color/black"
+        android:outlineSpotShadowColor="@color/black"
         android:padding="8dp" />
     <EditText
         android:id="@+id/etLinkGambar"
@@ -63,6 +63,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:hint="Link Gambar 'URL'"
+        android:textColor="@color/black"
         android:padding="8dp" />
 
     <androidx.cardview.widget.CardView
@@ -94,6 +95,7 @@
         android:layout_marginLeft="10dp"
         android:text="Promo Yang Tersedia Saat Ini"
         android:textSize="16dp"
+        android:textColor="@color/black"
         android:textStyle="bold" />
 
     <FrameLayout

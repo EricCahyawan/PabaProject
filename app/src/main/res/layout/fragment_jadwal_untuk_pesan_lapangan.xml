@@ -7,12 +7,13 @@
     android:background="@color/white"
     tools:context=".JadwalUntukPesanLapangan">
 
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:src="@drawable/baseline_arrow_back_ios_24"
+        android:src="@drawable/kembali"
         app:layout_constraintBottom_toTopOf="@+id/line"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -27,7 +28,8 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="@+id/imageView" />
+        app:layout_constraintTop_toTopOf="@+id/imageView"
+        android:textColor="@color/black"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
@@ -66,6 +68,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="32dp"
                 android:textStyle="bold"
+                android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView3"
                 android:text="Pilih waktu"/>
@@ -78,7 +81,8 @@
                 android:layout_marginTop="16dp"
                 android:text="Waktu"
                 app:layout_constraintStart_toEndOf="@+id/imageView3"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:textColor="@color/black"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -109,7 +113,8 @@
                 android:layout_marginTop="16dp"
                 android:text="Tanggal"
                 app:layout_constraintStart_toEndOf="@+id/imageView2"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:textColor="@color/black"/>
 
             <TextView
                 android:id="@+id/tanggalYgDipilih"
@@ -119,6 +124,7 @@
                 android:layout_marginBottom="32dp"
                 android:text="Pilih tanggal"
                 android:textStyle="bold"
+                android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView2" />
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -129,11 +135,11 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="text"
-            android:text="Masukkan nama anda"
+            android:hint="Masukan Nama Anda"
             android:padding="16dp"
-            app:layout_constraintBottom_toTopOf="@+id/constraintLayoutTanggal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            android:textColor="@color/black"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -165,7 +171,8 @@
             android:layout_height="wrap_content"
             android:text="Total durasi:"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@color/black"/>
 
         <TextView
             android:id="@+id/textView5"
@@ -174,6 +181,7 @@
             android:layout_marginTop="16dp"
             android:text="Biaya per jam:"
             app:layout_constraintStart_toStartOf="parent"
+            android:textColor="@color/black"
             app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
         <TextView
@@ -182,7 +190,8 @@
             android:layout_height="wrap_content"
             android:text="TextView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@color/black"/>
 
         <TextView
             android:id="@+id/biayaPerJam"
@@ -191,6 +200,7 @@
             android:layout_marginTop="24dp"
             android:text="Rp 50.000,-"
             app:layout_constraintEnd_toEndOf="parent"
+            android:textColor="@color/black"
             app:layout_constraintTop_toBottomOf="@+id/totalDurasi" />
 
         <TextView
@@ -210,7 +220,8 @@
             android:layout_marginTop="16dp"
             android:text="Tarif total:"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/line2" />
+            app:layout_constraintTop_toBottomOf="@+id/line2"
+            android:textColor="@color/black"/>
 
         <TextView
             android:id="@+id/tarifTotal"
@@ -219,7 +230,8 @@
             android:layout_marginTop="24dp"
             android:text="TextView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/line2" />
+            app:layout_constraintTop_toBottomOf="@+id/line2"
+            android:textColor="@color/black"/>
 
         <Button
             android:id="@+id/pesanBtn"
@@ -227,6 +239,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:text="Pesan"
+            android:backgroundTint="#697565"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView12" />

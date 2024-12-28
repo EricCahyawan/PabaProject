@@ -1,14 +1,13 @@
-package eric.app.pabaproject
+package eric.app.pabaproject.Robert.Promo
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.picasso.Picasso
+import eric.app.pabaproject.R
 
 class adapterPromo(private val listPromo: ArrayList<Promo>,
                    private var onItemDelete: (Promo) -> Unit,

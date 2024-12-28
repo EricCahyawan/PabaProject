@@ -1,4 +1,4 @@
-package eric.app.pabaproject
+package eric.app.pabaproject.Hansel
 
 import android.content.Intent
 import android.os.Build
@@ -16,6 +16,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore
+import eric.app.pabaproject.R
+import eric.app.pabaproject.Robert.HalamanAdmin
+import eric.app.pabaproject.Robert.MainActivity
 
 class PilihanLapangan : AppCompatActivity() {
     private lateinit var _tvNamaLapangan1: TextView
@@ -67,11 +70,24 @@ class PilihanLapangan : AppCompatActivity() {
             readData(db, kategoriOlahraga)
         }
 
-        //tampilkan recyclerview nya promo dari firebase
+        //tampilkan recyclerview nya lapangan dari firebase
         rvPilihanLapangan = findViewById(R.id.rvPilihanLapangan)
         rvPilihanLapangan.layoutManager = LinearLayoutManager(this)
         adapter = adapterLapangan(
             listLapangan = lapanganList,
+            onItemDelete = { lapangan -> // Callback untuk menghapus promo
+                db.collection("tbLapangan").document(lapangan.nama)
+                    .delete()
+                    .addOnSuccessListener {
+                        Log.d("Firebase", "Promo berhasil dihapus.")
+                        lapanganList.remove(lapangan) // Hapus dari daftar lokal
+                        adapter.notifyDataSetChanged()
+                    }
+                    .addOnFailureListener { e ->
+                        Log.w("Firebase", "Gagal menghapus lapangan: ${e.message}")
+                    }
+            },
+            isAdmin = false
         )
         rvPilihanLapangan.adapter = adapter
 
