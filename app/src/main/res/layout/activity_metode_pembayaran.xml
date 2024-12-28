@@ -37,7 +37,8 @@
                     android:text="Rincian Pesanan"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:layout_marginBottom="8dp" />
+                    android:layout_marginBottom="8dp"
+                    android:textColor="@color/black"/>
 
                 <!-- Divider -->
                 <View
@@ -52,6 +53,7 @@
                     android:layout_height="wrap_content"
                     android:text="Nama Pemesan: [Nama Pemesan]"
                     android:textSize="16sp"
+                    android:textColor="@color/black"
                     android:layout_marginBottom="4dp" />
 
                 <TextView
@@ -60,6 +62,7 @@
                     android:layout_height="wrap_content"
                     android:text="Nama Lapangan: [Nama Lapangan]"
                     android:textSize="16sp"
+                    android:textColor="@color/black"
                     android:layout_marginBottom="4dp" />
 
                 <TextView
@@ -68,6 +71,7 @@
                     android:layout_height="wrap_content"
                     android:text="Tanggal Pesan: [Tanggal Pesan]"
                     android:textSize="16sp"
+                    android:textColor="@color/black"
                     android:layout_marginBottom="4dp" />
 
                 <TextView
@@ -76,6 +80,7 @@
                     android:layout_height="wrap_content"
                     android:text="Waktu Pesan: [Waktu Pesan]"
                     android:textSize="16sp"
+                    android:textColor="@color/black"
                     android:layout_marginBottom="4dp" />
 
                 <TextView
@@ -84,6 +89,7 @@
                     android:layout_height="wrap_content"
                     android:text="Durasi: [Durasi] Jam"
                     android:textSize="16sp"
+                    android:textColor="@color/black"
                     android:layout_marginBottom="16dp" />
 
                 <View
@@ -97,6 +103,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Total Tarif: Rp [Tarif Total]"
+                    android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -110,6 +117,7 @@
             android:textSize="18sp"
             android:layout_marginBottom="16dp"
             android:textStyle="bold"
+            android:textColor="@color/black"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp" />
 
@@ -122,6 +130,7 @@
 
             <RadioButton
                 android:id="@+id/radio_transfer"
+                android:textColor="@color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Transfer Bank" >
@@ -169,6 +178,7 @@
                 android:id="@+id/radio_cash"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:text="Bayar Tunai Saat Datang di Lapangan" />
         </RadioGroup>
 
@@ -183,6 +193,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             android:backgroundTint="#697565"
+            android:textColor="@color/white"
             />
 
     </LinearLayout>
