@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     android:background="@color/white"
-    tools:context=".MetodePembayaran">
+    tools:context=".William.MetodePembayaran">
 
     <LinearLayout
         android:id="@+id/main"

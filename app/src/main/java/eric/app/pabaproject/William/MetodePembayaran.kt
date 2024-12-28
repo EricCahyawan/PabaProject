@@ -1,4 +1,4 @@
-package eric.app.pabaproject
+package eric.app.pabaproject.William
 
 import android.content.Intent
 import android.net.Uri
@@ -18,6 +18,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
+import eric.app.pabaproject.R
+import eric.app.pabaproject.Robert.MainActivity
 
 class MetodePembayaran : AppCompatActivity() {
 

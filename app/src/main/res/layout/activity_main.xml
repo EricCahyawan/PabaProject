@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".Robert.MainActivity"
     android:orientation="vertical"
     android:background="@color/white">
 
@@ -34,6 +34,7 @@
         android:textSize="16dp"
         android:text="Pilih Olahraga"
         android:textStyle="bold"
+        android:textColor="@color/black"
         />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -55,6 +56,7 @@
         android:textSize="16dp"
         android:text="Lihat Promo"
         android:textStyle="bold"
+        android:textColor="@color/black"
         />
 
     <FrameLayout

@@ -1,4 +1,4 @@
-package eric.app.pabaproject
+package eric.app.pabaproject.Hansel
 
 import android.content.Intent
 import android.graphics.Bitmap
@@ -13,9 +13,8 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.WriterException
 import com.google.zxing.qrcode.QRCodeWriter
 import com.squareup.picasso.Picasso
-
-
-
+import eric.app.pabaproject.William.DetailLapangan
+import eric.app.pabaproject.R
 
 
 class adapterLapangan (private val listLapangan: ArrayList<Lapangan>) : RecyclerView
