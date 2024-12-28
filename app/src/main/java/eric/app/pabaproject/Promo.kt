@@ -1,4 +1,4 @@
-package eric.app.pabaproject.Robert.Promo
+package eric.app.pabaproject
 
 data class Promo(
     var nama : String,

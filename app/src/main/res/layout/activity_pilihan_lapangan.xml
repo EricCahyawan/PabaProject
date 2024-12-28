@@ -6,64 +6,54 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Hansel.PilihanLapangan"
-    android:background="@color/white">
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/btnKembali"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_margin="15dp"
-            android:src="@drawable/kembali" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="13dp"
-            android:text="Lapangan "
-            android:textColor="@color/black"
-            android:textSize="18dp"
-            />
-
-        <TextView
-            android:id="@+id/tvNamaLapangan1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="13dp"
-            android:textSize="18dp"
-            android:textColor="@color/black"
-            android:text="Basket"
-            android:textStyle="bold"
-            android:layout_marginLeft="1dp" />
-
-
-
-    </LinearLayout>
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:layout_marginTop="0dp"
-        app:cardBackgroundColor="#3C3D37" />
-
+    android:layout_marginLeft="24dp"
+    android:layout_marginRight="24dp"
+    android:layout_marginTop="24dp"
+    android:background="@color/white"
+    tools:context=".PilihanLapangan">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
+        android:gravity="center_vertical"
+        android:layout_marginBottom="8dp">
+        <ImageView
+            android:id="@+id/btnKembali"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center"
+            android:src="@drawable/baseline_arrow_back_ios_24"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24dp"
+            android:text="Lapangan"/>
+        <TextView
+            android:id="@+id/tvNamaLapangan1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24dp"
+            android:text="Basket"
+            android:textStyle="bold"
+            android:layout_marginLeft="6dp" />
+    </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_marginBottom="5dp"
+        app:cardBackgroundColor="#3C3D37" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="8dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20dp"
-            android:textColor="@color/black"
             android:text="Main"/>
         <TextView
             android:id="@+id/tvNamaLapangan2"
@@ -72,14 +62,12 @@
             android:textSize="20dp"
             android:textStyle="bold"
             android:text="Basket"
-            android:textColor="@color/black"
             android:layout_marginLeft="6dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20dp"
             android:layout_marginLeft="6dp"
-            android:textColor="@color/black"
             android:text="yuk!"/>
     </LinearLayout>
 
@@ -92,9 +80,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/rvPilihanLapangan"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"/>
+        android:id="@+id/rvPilihanLapangan" />
 
     <com.google.android.material.navigation.NavigationView
         android:layout_width="match_parent"

@@ -1,5 +1,6 @@
 package eric.app.pabaproject
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,15 +9,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
-import eric.app.pabaproject.Robert.MainActivity
-import eric.app.pabaproject.William.MetodePembayaran
+import java.util.Calendar
+import java.util.Date
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -63,13 +63,9 @@ class JadwalUntukPesanLapangan : Fragment() {
         val constraintLayoutTanggal: ConstraintLayout = view.findViewById(R.id.constraintLayoutTanggal)
         val constraintLayoutWaktu: ConstraintLayout = view.findViewById(R.id.constraintLayoutWaktu)
 
-        if (arguments?.getString("namaLapangan") != null){
-            val namaLapangan = arguments?.getString("namaLapangan")
-            viewModel.namaLapangan = namaLapangan
-        }
-        _namaLapangan.text = viewModel.namaLapangan.toString()
+        val namaLapangan = arguments?.getString("namaLapangan")
 
-
+        _namaLapangan.text = namaLapangan
         _tanggalYgDipilih.text = viewModel.selectedDate ?: "-"
         _totalDurasi.text = viewModel.duration ?: "-"
         if (viewModel.duration != null) {
@@ -155,6 +151,9 @@ class JadwalUntukPesanLapangan : Fragment() {
                     }
             }
         }
+
+
+
         return view
     }
 

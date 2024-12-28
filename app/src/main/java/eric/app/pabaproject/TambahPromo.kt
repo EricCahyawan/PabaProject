@@ -1,8 +1,10 @@
-package eric.app.pabaproject.Robert.Promo
+package eric.app.pabaproject
 
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
@@ -16,9 +18,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore
-import eric.app.pabaproject.R
-import eric.app.pabaproject.Robert.HalamanAdmin
-import eric.app.pabaproject.Robert.MainActivity
 
 class TambahPromo : AppCompatActivity() {
 

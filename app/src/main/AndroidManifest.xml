@@ -18,28 +18,29 @@
         android:theme="@style/Theme.PabaProject"
         tools:targetApi="31">
         <activity
-            android:name=".Hansel.TambahLapangan"
+            android:name=".TambahLapangan"
             android:exported="false" />
         <activity
-            android:name=".Hansel.PilihanLapangan"
+            android:name=".PilihanLapangan"
             android:exported="false" />
         <activity
-            android:name=".Robert.HalamanAdmin"
+            android:name=".HalamanAdmin"
             android:exported="false" />
         <activity
-            android:name=".Robert.Promo.TambahPromo"
+            android:name=".TambahPromo"
             android:exported="false" />
         <activity
-            android:name=".William.MetodePembayaran"
+            android:name=".roberttest"
+            android:name=".MetodePembayaran"
             android:exported="false" />
         <activity
-            android:name=".William.DetailLapangan"
+            android:name=".DetailLapangan"
             android:exported="false" />
         <activity
             android:name=".JadwalUntukPesanLapanganContainer"
             android:exported="false" />
         <activity
-            android:name=".Robert.MainActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,13 +1,14 @@
-package eric.app.pabaproject.Robert.JenisOlahraga
+package eric.app.pabaproject
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView.OnItemClickListener
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
-import eric.app.pabaproject.R
 
 class adapterJenisOlahraga (private val listJenisOlahraga: ArrayList<JenisOlahraga>) : RecyclerView
 .Adapter<adapterJenisOlahraga.ListViewHolder> (){
@@ -51,7 +52,7 @@ class adapterJenisOlahraga (private val listJenisOlahraga: ArrayList<JenisOlahra
     private lateinit var onItemClickCallback: OnItemClickCallback
 
     interface OnItemClickCallback {
-        fun onItemClicked(data: JenisOlahraga)
+        fun onItemClicked(data:JenisOlahraga)
     }
     fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback){
         this.onItemClickCallback = onItemClickCallback

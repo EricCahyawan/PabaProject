@@ -1,4 +1,4 @@
-package eric.app.pabaproject.Hansel
+package eric.app.pabaproject
 
 data class Lapangan(
     var kategori : String,

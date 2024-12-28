@@ -34,7 +34,6 @@
         android:text="nama olahraga"
         android:layout_gravity="center"
         android:textStyle="bold"
-        android:textColor="@color/black"
         />
 
 

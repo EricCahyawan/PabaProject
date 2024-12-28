@@ -1,200 +1,107 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:background="@color/white"
-    tools:context=".William.MetodePembayaran">
+    tools:context=".MetodePembayaran"
+    android:orientation="vertical"
+    android:padding="24dp">
 
-    <LinearLayout
-        android:id="@+id/main"
+    <TextView
+        android:id="@+id/rincianPesanan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="24dp">
+        android:text="Rincian Pesanan"
+        android:textSize="16sp"
+        android:layout_marginBottom="16dp"
+        android:textStyle="bold" />
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Pilih Metode Pembayaran"
+        android:textSize="18sp"
+        android:layout_marginBottom="16dp"
+        android:textStyle="bold" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/radio_transfer"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="4dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginTop="8dp"
-            app:cardBackgroundColor="@color/white">
+            android:text="Transfer Bank" >
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
+        </RadioButton>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Rincian Pesanan"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="8dp"
-                    android:textColor="@color/black"/>
+        <RadioButton
+            android:id="@+id/radio_ewallet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="E-Wallet (OVO, GoPay, dll.)" >
 
-                <!-- Divider -->
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/darker_gray"
-                    android:layout_marginBottom="8dp" />
+        </RadioButton>
 
-                <TextView
-                    android:id="@+id/tvNamaPemesan"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Nama Pemesan: [Nama Pemesan]"
-                    android:textSize="16sp"
-                    android:textColor="@color/black"
-                    android:layout_marginBottom="4dp" />
+        <RadioButton
+            android:id="@+id/radio_cash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bayar Tunai Saat Datang di Lapangan" >
 
-                <TextView
-                    android:id="@+id/tvNamaLapangan"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Nama Lapangan: [Nama Lapangan]"
-                    android:textSize="16sp"
-                    android:textColor="@color/black"
-                    android:layout_marginBottom="4dp" />
+        </RadioButton>
+    </RadioGroup>
 
-                <TextView
-                    android:id="@+id/tvTanggalPesan"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Tanggal Pesan: [Tanggal Pesan]"
-                    android:textSize="16sp"
-                    android:textColor="@color/black"
-                    android:layout_marginBottom="4dp" />
-
-                <TextView
-                    android:id="@+id/tvWaktuPesan"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Waktu Pesan: [Waktu Pesan]"
-                    android:textSize="16sp"
-                    android:textColor="@color/black"
-                    android:layout_marginBottom="4dp" />
-
-                <TextView
-                    android:id="@+id/tvDurasi"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Durasi: [Durasi] Jam"
-                    android:textSize="16sp"
-                    android:textColor="@color/black"
-                    android:layout_marginBottom="16dp" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/darker_gray"
-                    android:layout_marginBottom="8dp" />
-
-                <TextView
-                    android:id="@+id/tvTarifTotal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Total Tarif: Rp [Tarif Total]"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+    <!-- Kontainer untuk informasi tambahan -->
+    <LinearLayout
+        android:id="@+id/infoTransferBankContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:orientation="vertical"
+        android:padding="16dp">
 
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/tvNomorRekening"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pilih Metode Pembayaran"
-            android:textSize="18sp"
-            android:layout_marginBottom="16dp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp" />
+            android:text="Nomor Rekening: 1234567890 (Bank ABC)"
+            android:textSize="16sp" />
 
-        <RadioGroup
-            android:id="@+id/radioGroup"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tvInstruksiTransfer"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp">
-
-            <RadioButton
-                android:id="@+id/radio_transfer"
-                android:textColor="@color/black"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Transfer Bank" >
-
-            </RadioButton>
-            <LinearLayout
-                android:id="@+id/infoTransferBankContainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:orientation="vertical"
-                android:padding="16dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp">
-
-                <TextView
-                    android:id="@+id/tvNomorRekening"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Nomor Rekening: 1234567890 (Bank ABC)"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/tvInstruksiTransfer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Silakan transfer sesuai total tarif, kemudian unggah bukti transfer."
-                    android:textSize="14sp" />
-
-                <Button
-                    android:id="@+id/btnUploadBukti"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Upload Bukti Transfer" />
-
-                <ImageView
-                    android:id="@+id/imageViewBuktiTransfer"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_marginTop="16dp"
-                    android:visibility="gone"
-                    android:scaleType="centerCrop" />
-            </LinearLayout>
-            <RadioButton
-                android:id="@+id/radio_cash"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:text="Bayar Tunai Saat Datang di Lapangan" />
-        </RadioGroup>
-
-
+            android:text="Silakan transfer sesuai total tarif, kemudian unggah bukti transfer."
+            android:textSize="14sp" />
 
         <Button
-            android:id="@+id/bayarButton"
-            android:layout_width="match_parent"
+            android:id="@+id/btnUploadBukti"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Bayar"
-            android:layout_marginTop="24dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:backgroundTint="#697565"
-            android:textColor="@color/white"
-            />
+            android:text="Upload Bukti Transfer" />
+
+        <ImageView
+            android:id="@+id/imageViewBuktiTransfer"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="16dp"
+            android:visibility="gone"
+            android:scaleType="centerCrop" />
 
     </LinearLayout>
-</ScrollView>
+
+
+    <Button
+        android:id="@+id/bayarButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Bayar"
+        android:layout_marginTop="24dp" />
+
+
+</LinearLayout>
