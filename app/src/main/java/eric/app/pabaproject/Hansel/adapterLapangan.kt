@@ -17,7 +17,8 @@ import eric.app.pabaproject.William.DetailLapangan
 import eric.app.pabaproject.R
 
 
-class adapterLapangan (private val listLapangan: ArrayList<Lapangan>) : RecyclerView
+class adapterLapangan (private val listLapangan: ArrayList<Lapangan>, private var onItemDelete: (Lapangan) -> Unit,
+                       private val isAdmin: Boolean) : RecyclerView
 .Adapter<adapterLapangan.ListViewHolder> () {
 
     private lateinit var onItemClickCallback: OnItemClickCallback
@@ -55,6 +56,16 @@ class adapterLapangan (private val listLapangan: ArrayList<Lapangan>) : Recycler
         Picasso.get()
             .load(Lapangan.gambar)
             .into(holder._gambarLapangan)
+
+        // Atur visibilitas tombol hapus
+        if (isAdmin) {
+            holder._btnHapus.visibility = View.VISIBLE
+            holder._btnHapus.setOnClickListener {
+                onItemDelete(Lapangan)
+            }
+        } else {
+            holder._btnHapus.visibility = View.GONE
+        }
 
         val qrCodeBitmap = generateQRCode(Lapangan)
         holder.qrCode.setImageBitmap(qrCodeBitmap)
@@ -112,6 +123,7 @@ class adapterLapangan (private val listLapangan: ArrayList<Lapangan>) : Recycler
         var _gambarLapangan = itemView.findViewById<ImageView>(R.id.gambarLapangan)
         var _hargaLapangan = itemView.findViewById<TextView>(R.id.hargaLapangan)
         val qrCode = itemView.findViewById<ImageView>(R.id.qrCode)
+        var _btnHapus = itemView.findViewById<ImageView>(R.id.btnHapus)
     }
 
 

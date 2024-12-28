@@ -137,7 +137,6 @@
             android:inputType="text"
             android:text="Masukkan nama anda"
             android:padding="16dp"
-            app:layout_constraintBottom_toTopOf="@+id/constraintLayoutTanggal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:textColor="@color/black"
